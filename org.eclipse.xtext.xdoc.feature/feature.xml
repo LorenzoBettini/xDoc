@@ -16,13 +16,6 @@
       %license
    </license>
 
-   <requires>
-      <import feature="org.eclipse.xtext.sdk" version="2.0.0.qualifier" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.lang"/>
-      <import plugin="org.apache.commons.logging"/>
-      <import plugin="org.apache.log4j"/>
-   </requires>
-
    <plugin
          id="org.eclipse.xtext.xdoc"
          download-size="0"
