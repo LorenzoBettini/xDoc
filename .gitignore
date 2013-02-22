@@ -23,3 +23,5 @@ target
 
 # ignore trace files
 *.java._trace
+
+buildroot
