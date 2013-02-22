@@ -1,0 +1,6 @@
+setpref targetPlatformPath="${target.platform}"
+resolve "${projects.location}/org.eclipse.xtext.xdoc.buckminster/build.cquery"
+
+build
+
+perform -D target.os=* -D target.ws=* -D target.arch=* org.eclipse.xtext.xdoc.site#site.p2
