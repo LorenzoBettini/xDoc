@@ -152,22 +152,6 @@ public class EclipseHelpUriUtil {
       }
     }
     if (!_matched) {
-      if (it instanceof Part) {
-        final Part _part = (Part)it;
-        _matched=true;
-        URI _targetURI = this.targetURI(((Identifiable) _part));
-        _switchResult = _targetURI;
-      }
-    }
-    if (!_matched) {
-      if (it instanceof Chapter) {
-        final Chapter _chapter = (Chapter)it;
-        _matched=true;
-        URI _targetURI = this.targetURI(((Identifiable) _chapter));
-        _switchResult = _targetURI;
-      }
-    }
-    if (!_matched) {
       if (it instanceof Document) {
         final Document _document = (Document)it;
         _matched=true;
