@@ -367,7 +367,7 @@ public class GitExtensions {
         boolean _startsWith_29 = name.startsWith("org.eclipse.xtend.lib.");
         if (_startsWith_29) {
           _matched=true;
-          String _plus_27 = (GitExtensions.XTEXT_BASE_DIR + "org.eclipse.xtext.lib/src/");
+          String _plus_27 = (GitExtensions.XTEXT_BASE_DIR + "org.eclipse.xtend.lib/src/");
           _switchResult = _plus_27;
         }
       }
