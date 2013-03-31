@@ -16,6 +16,10 @@
       %license
    </license>
 
+   <requires>
+      <import feature="org.eclipse.xtext.sdk" version="2.3.1" match="equivalent"/>
+   </requires>
+
    <plugin
          id="org.eclipse.xtext.xdoc"
          download-size="0"
