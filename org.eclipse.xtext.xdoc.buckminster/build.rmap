@@ -9,7 +9,7 @@
 	<rm:property key="eclipse.download" value="http://download.eclipse.org" />
 	<rm:property key="xtext.p2.repository"
 		value="${eclipse.download}/modeling/tmf/xtext/updates/composite/releases" />
-	<rm:property key="eclipse.target.platform" value="${eclipse.download}/releases/indigo" />
+	<rm:property key="eclipse.target.platform" value="${eclipse.download}/releases/kepler" />
 
 	<!-- 
 	<rm:property key="swtbot.repository"
@@ -21,15 +21,14 @@
 	<rm:locator pattern="^org\.eclipse\.xtext\.xdoc(?:\..+)?$"
 		searchPathRef="xdoc" />
 
+	<!-- Currently, Xtext 2.4.2 is available only from Kepler site 
 	<rm:locator
 		pattern="^org\.eclipse\.(?:xtext|xpand|xtend|xtend2|emf\.mwe|emf\.mwe2)(?:\..+)?$"
-		searchPathRef="xtext" />
-	<rm:locator
-		pattern="^org\.eclipse\.emf\.generic\.editor(?:\..+)?$"
 		searchPathRef="xtext" />
 	<rm:locator pattern="^com\.google.*" searchPathRef="xtext" />
 	<rm:locator pattern="^org\.antlr.*" searchPathRef="xtext" />
 	<rm:locator pattern="javax.inject" searchPathRef="xtext" />
+	-->
 
 	<!--  <rm:locator pattern="^org\.hamcrest*" searchPathRef="orbit" /> 
 	<rm:locator pattern="^org\.apache*" searchPathRef="orbit" />  
