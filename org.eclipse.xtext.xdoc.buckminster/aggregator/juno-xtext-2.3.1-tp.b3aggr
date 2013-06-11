@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" description="Mirror for Xtext 2.3.1 Target Platform" label="Mirror for Xtext 2.3.1 Target Platform" buildRoot="${user.home}/mirror/xtext-2.3.1-tp">
+<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" description="Mirror for Xtext 2.3.1 Target Platform" label="Mirror for Xtext 2.3.1 Target Platform" buildRoot="${user.home}/mirror/juno-xtext-2.3.1-tp">
   <validationSets label="main">
     <contributions label="Juno RCP">
       <repositories location="http://download.eclipse.org/releases/juno">
@@ -8,9 +8,11 @@
     </contributions>
     <contributions description="Xtext Releases" label="Xtext Releases">
       <repositories location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases">
-        <features name="org.eclipse.xtext.sdk.feature.group" versionRange="[2.3.1,2.4.0]"/>
-        <features name="org.eclipse.xtend.sdk.feature.group" versionRange="[2.3.1,2.4.0]"/>
-        <features name="org.eclipse.xpand.sdk.feature.group" versionRange="[1.2.1,1.3.0]"/>
+        <features name="org.eclipse.xtext.sdk.feature.group" versionRange="[2.3.1,2.4.0)"/>
+        <features name="org.eclipse.xtend.sdk.feature.group" versionRange="[2.3.1,2.4.0)"/>
+        <features name="org.eclipse.xpand.sdk.feature.group" versionRange="[1.2.1,1.3.0)"/>
+        <features name="org.eclipse.emf.mwe.sdk.feature.group" versionRange="[1.2.1,1.3.0)"/>
+        <features name="org.eclipse.emf.mwe2.runtime.sdk.feature.group" versionRange="[2.3.0,2.4.0)"/>
       </repositories>
     </contributions>
   </validationSets>
