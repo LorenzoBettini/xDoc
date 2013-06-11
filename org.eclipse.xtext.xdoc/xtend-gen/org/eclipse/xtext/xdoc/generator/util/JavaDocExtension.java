@@ -24,7 +24,7 @@ public class JavaDocExtension {
         boolean _startsWith = name.startsWith("org.eclipse.emf.mwe");
         if (_startsWith) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/modeling/emft/mwe/javadoc/2.3/";
+          _switchResult = "http://download.eclipse.org/modeling/emft/mwe/javadoc/2.4/";
         }
       }
       if (!_matched) {
@@ -38,21 +38,21 @@ public class JavaDocExtension {
         }
         if (_or) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.3/";
+          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.4/";
         }
       }
       if (!_matched) {
         boolean _startsWith_3 = name.startsWith("org.eclipse.xtend.");
         if (_startsWith_3) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/xtend/javadoc/2.3/";
+          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.4/";
         }
       }
       if (!_matched) {
         boolean _startsWith_4 = name.startsWith("org.eclipse.emf.");
         if (_startsWith_4) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/modeling/emf/emf/javadoc/2.6.0/";
+          _switchResult = "http://download.eclipse.org/modeling/emf/emf/javadoc/2.9.0/";
         }
       }
       if (!_matched) {

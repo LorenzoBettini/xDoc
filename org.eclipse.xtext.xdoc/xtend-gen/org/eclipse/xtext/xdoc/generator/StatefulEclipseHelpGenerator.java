@@ -24,6 +24,7 @@ import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IFileSystemAccessExtension2;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xdoc.generator.AbstractSectionExtension;
 import org.eclipse.xtext.xdoc.generator.EclipseHelpUriUtil;
@@ -67,24 +68,31 @@ import org.eclipse.xtext.xdoc.xdoc.XdocFile;
 @SuppressWarnings("all")
 public class StatefulEclipseHelpGenerator {
   @Inject
+  @Extension
   private JavaDocExtension jdoc;
   
   @Inject
+  @Extension
   private GitExtensions git;
   
   @Inject
+  @Extension
   private Utils utils;
   
   @Inject
+  @Extension
   private EclipseNamingExtensions eclipseNamingExtensions;
   
   @Inject
+  @Extension
   private TocGenerator tocGenerator;
   
   @Inject
+  @Extension
   private PlainText plainText;
   
   @Inject
+  @Extension
   private AbstractSectionExtension sectionExtension;
   
   @Inject
@@ -102,7 +110,13 @@ public class StatefulEclipseHelpGenerator {
     this.access = ((IFileSystemAccess) accessExtension2);
     EList<EObject> _contents = res.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
-    final AbstractSection doc = ((XdocFile) _head)==null?(AbstractSection)null:((XdocFile) _head).getMainSection();
+    AbstractSection _mainSection = null;
+    EList<EObject> _contents_1 = res.getContents();
+    EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
+    if (((XdocFile) _head_1)!=null) {
+      _mainSection=((XdocFile) _head_1).getMainSection();
+    }
+    final AbstractSection doc = _mainSection;
     if ((doc instanceof Document)) {
       this.uriUtil.initialize(((Document) doc));
       this.generateDoc(((Document) doc), this.access);
@@ -580,7 +594,7 @@ public class StatefulEclipseHelpGenerator {
   protected CharSequence _generate(final Ref ref) {
     CharSequence _xblockexpression = null;
     {
-      CharSequence _xifexpression = null;
+      String _xifexpression = null;
       Identifiable _ref = ref.getRef();
       if ((_ref instanceof AbstractSection)) {
         StringConcatenation _builder = new StringConcatenation();
@@ -590,9 +604,9 @@ public class StatefulEclipseHelpGenerator {
         CharSequence _genPlainText = this.plainText.genPlainText(_title);
         _builder.append(_genPlainText, "");
         _builder.append("&quot;\"");
-        _xifexpression = _builder;
+        _xifexpression = _builder.toString();
       }
-      final CharSequence title = _xifexpression;
+      final String title = _xifexpression;
       StringConcatenation _builder_1 = new StringConcatenation();
       {
         EList<TextOrMarkup> _contents = ref.getContents();
@@ -708,11 +722,14 @@ public class StatefulEclipseHelpGenerator {
   protected CharSequence _generate(final ImageRef img) {
     CharSequence _xblockexpression = null;
     {
-      final URI imageChapterRelativeURI = this.uriUtil.getRelativeTargetURI(img);
       String _path = img.getPath();
-      String _unescapeXdocChars = this.utils.unescapeXdocChars(_path);
+      final String escapedPath = this.utils.unescapeXdocChars(_path);
+      final URI absoluteOutputURI = this.accessExtension2.getURI(escapedPath, Outlets.ECLIPSE_HELP);
+      String _targetDocumentName = this.uriUtil.getTargetDocumentName();
+      final URI documentURI = this.accessExtension2.getURI(_targetDocumentName, Outlets.ECLIPSE_HELP);
+      final URI imageChapterRelativeURI = absoluteOutputURI.deresolve(documentURI);
       Resource _eResource = img.eResource();
-      this.copy(_unescapeXdocChars, _eResource);
+      this.copy(escapedPath, _eResource);
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("<div class=\"image\" >");
       _builder.newLine();
@@ -726,12 +743,10 @@ public class StatefulEclipseHelpGenerator {
           _builder.newLineIfNotEmpty();
         }
       }
-      _builder.append("", "");
-      _builder.newLineIfNotEmpty();
       _builder.append("<img src=\"");
       String _string = imageChapterRelativeURI.toString();
-      String _unescapeXdocChars_1 = this.utils.unescapeXdocChars(_string);
-      _builder.append(_unescapeXdocChars_1, "");
+      String _unescapeXdocChars = this.utils.unescapeXdocChars(_string);
+      _builder.append(_unescapeXdocChars, "");
       _builder.append("\" ");
       {
         String _clazz = img.getClazz();
@@ -739,8 +754,8 @@ public class StatefulEclipseHelpGenerator {
         if (_notEquals_1) {
           _builder.append("class=\"");
           String _clazz_1 = img.getClazz();
-          String _unescapeXdocChars_2 = this.utils.unescapeXdocChars(_clazz_1);
-          _builder.append(_unescapeXdocChars_2, "");
+          String _unescapeXdocChars_1 = this.utils.unescapeXdocChars(_clazz_1);
+          _builder.append(_unescapeXdocChars_1, "");
           _builder.append("\" ");
         }
       }
@@ -761,8 +776,8 @@ public class StatefulEclipseHelpGenerator {
         if (_and) {
           _builder.append(" style=\"");
           String _style_2 = img.getStyle();
-          String _unescapeXdocChars_3 = this.utils.unescapeXdocChars(_style_2);
-          _builder.append(_unescapeXdocChars_3, "");
+          String _unescapeXdocChars_2 = this.utils.unescapeXdocChars(_style_2);
+          _builder.append(_unescapeXdocChars_2, "");
           _builder.append("\" ");
         }
       }
@@ -771,8 +786,8 @@ public class StatefulEclipseHelpGenerator {
       _builder.append("<div class=\"caption\">");
       _builder.newLine();
       String _caption = img.getCaption();
-      String _unescapeXdocChars_4 = this.utils.unescapeXdocChars(_caption);
-      String _escapeHTMLChars = this.utils.escapeHTMLChars(_unescapeXdocChars_4);
+      String _unescapeXdocChars_3 = this.utils.unescapeXdocChars(_caption);
+      String _escapeHTMLChars = this.utils.escapeHTMLChars(_unescapeXdocChars_3);
       _builder.append(_escapeHTMLChars, "");
       _builder.newLineIfNotEmpty();
       _builder.append("</div>");
@@ -923,7 +938,7 @@ public class StatefulEclipseHelpGenerator {
         _xifexpression_1 = _dottedSimpleName;
       }
       final CharSequence text = _xifexpression_1;
-      CharSequence _xifexpression_2 = null;
+      String _xifexpression_2 = null;
       boolean _notEquals_1 = (!Objects.equal(jDocLink, null));
       if (_notEquals_1) {
         StringConcatenation _builder = new StringConcatenation();
@@ -937,7 +952,7 @@ public class StatefulEclipseHelpGenerator {
         _builder.append(prefix, "");
         _builder.append(text, "");
         _builder.append("</abbr></a>");
-        _xifexpression_2 = _builder;
+        _xifexpression_2 = _builder.toString();
       } else {
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("<abbr title=\"");
@@ -946,9 +961,9 @@ public class StatefulEclipseHelpGenerator {
         _builder_1.append(prefix, "");
         _builder_1.append(text, "");
         _builder_1.append("</abbr>");
-        _xifexpression_2 = _builder_1;
+        _xifexpression_2 = _builder_1.toString();
       }
-      CharSequence ret = _xifexpression_2;
+      String ret = _xifexpression_2;
       CharSequence _xifexpression_3 = null;
       boolean _notEquals_2 = (!Objects.equal(gitLink, null));
       if (_notEquals_2) {
@@ -1001,7 +1016,7 @@ public class StatefulEclipseHelpGenerator {
     } else {
       CharSequence _xblockexpression = null;
       {
-        final int indentToRemove = this.utils.calcIndent(cb);
+        final Integer indentToRemove = this.utils.calcIndent(cb);
         Iterable<EObject> _xifexpression_1 = null;
         EList<EObject> _contents_1 = cb.getContents();
         int _size = _contents_1.size();
@@ -1021,7 +1036,7 @@ public class StatefulEclipseHelpGenerator {
         EList<EObject> _contents_4 = cb.getContents();
         EObject _head_1 = IterableExtensions.<EObject>head(_contents_4);
         CharSequence _generateCode_1 = this.generateCode(_head_1);
-        String _trimLines = this.trimLines(_generateCode_1, indentToRemove);
+        String _trimLines = this.trimLines(_generateCode_1, (indentToRemove).intValue());
         final String first = _trimLines.replaceAll("\\A(\\s*\n)*", "");
         String _xifexpression_2 = null;
         EList<EObject> _contents_5 = cb.getContents();
@@ -1033,7 +1048,7 @@ public class StatefulEclipseHelpGenerator {
           EList<EObject> _contents_7 = cb.getContents();
           EObject _last_1 = IterableExtensions.<EObject>last(_contents_7);
           CharSequence _generateCode_2 = this.generateCode(_last_1);
-          String _trimLines_1 = this.trimLines(_generateCode_2, indentToRemove);
+          String _trimLines_1 = this.trimLines(_generateCode_2, (indentToRemove).intValue());
           String _replaceAll = _trimLines_1.replaceAll("(\\s*\n)*\\Z", "");
           _xifexpression_2 = _replaceAll;
         } else {
@@ -1059,7 +1074,7 @@ public class StatefulEclipseHelpGenerator {
         {
           for(final EObject code : list) {
             CharSequence _generateCode_3 = this.generateCode(code);
-            String _trimLines_2 = this.trimLines(_generateCode_3, indentToRemove);
+            String _trimLines_2 = this.trimLines(_generateCode_3, (indentToRemove).intValue());
             LangDef _language_2 = cb.getLanguage();
             String _formatCode_2 = this.utils.formatCode(_trimLines_2, _language_2);
             _builder_1.append(_formatCode_2, "");

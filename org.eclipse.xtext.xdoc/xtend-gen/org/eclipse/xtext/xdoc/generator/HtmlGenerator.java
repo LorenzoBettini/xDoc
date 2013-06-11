@@ -26,6 +26,7 @@ import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xdoc.generator.AbstractSectionExtension;
@@ -73,24 +74,31 @@ import org.eclipse.xtext.xdoc.xdoc.XdocFile;
 @SuppressWarnings("all")
 public class HtmlGenerator implements IGenerator {
   @Inject
+  @Extension
   private Utils utils;
   
   @Inject
+  @Extension
   private PlainText plaintext;
   
   @Inject
+  @Extension
   private HTMLNamingExtensions naming;
   
   @Inject
+  @Extension
   private AbstractSectionExtension ase;
   
   @Inject
+  @Extension
   private GitExtensions git;
   
   @Inject
+  @Extension
   private JavaDocExtension jdoc;
   
   @Inject
+  @Extension
   private PHPPhoenixGenerator ppg;
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
@@ -948,7 +956,7 @@ public class HtmlGenerator implements IGenerator {
         _xifexpression_1 = _dottedSimpleName;
       }
       final CharSequence text = _xifexpression_1;
-      CharSequence _xifexpression_2 = null;
+      String _xifexpression_2 = null;
       boolean _notEquals_1 = (!Objects.equal(jDocLink, null));
       if (_notEquals_1) {
         StringConcatenation _builder = new StringConcatenation();
@@ -962,7 +970,7 @@ public class HtmlGenerator implements IGenerator {
         _builder.append(prefix, "");
         _builder.append(text, "");
         _builder.append("</abbr></a>");
-        _xifexpression_2 = _builder;
+        _xifexpression_2 = _builder.toString();
       } else {
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("<abbr title=\"");
@@ -971,9 +979,9 @@ public class HtmlGenerator implements IGenerator {
         _builder_1.append(prefix, "");
         _builder_1.append(text, "");
         _builder_1.append("</abbr>");
-        _xifexpression_2 = _builder_1;
+        _xifexpression_2 = _builder_1.toString();
       }
-      CharSequence ret = _xifexpression_2;
+      String ret = _xifexpression_2;
       CharSequence _xifexpression_3 = null;
       boolean _notEquals_2 = (!Objects.equal(gitLink, null));
       if (_notEquals_2) {
@@ -1092,7 +1100,7 @@ public class HtmlGenerator implements IGenerator {
   protected CharSequence _genText(final Ref ref) {
     CharSequence _xblockexpression = null;
     {
-      CharSequence _xifexpression = null;
+      String _xifexpression = null;
       Identifiable _ref = ref.getRef();
       if ((_ref instanceof AbstractSection)) {
         StringConcatenation _builder = new StringConcatenation();
@@ -1102,9 +1110,9 @@ public class HtmlGenerator implements IGenerator {
         CharSequence _genPlainText = this.plaintext.genPlainText(_title);
         _builder.append(_genPlainText, "");
         _builder.append("&quot;\"");
-        _xifexpression = _builder;
+        _xifexpression = _builder.toString();
       }
-      final CharSequence title = _xifexpression;
+      final String title = _xifexpression;
       StringConcatenation _builder_1 = new StringConcatenation();
       {
         EList<TextOrMarkup> _contents = ref.getContents();

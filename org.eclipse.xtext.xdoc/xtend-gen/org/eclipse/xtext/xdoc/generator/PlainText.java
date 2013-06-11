@@ -22,16 +22,16 @@ public class PlainText {
   protected CharSequence _genPlainText(final TextOrMarkup tom) {
     EList<EObject> _contents = tom.getContents();
     StringConcatenation _builder = new StringConcatenation();
-    final Function2<CharSequence,EObject,CharSequence> _function = new Function2<CharSequence,EObject,CharSequence>() {
-        public CharSequence apply(final CharSequence e1, final EObject e2) {
+    final Function2<String,EObject,String> _function = new Function2<String,EObject,String>() {
+        public String apply(final String e1, final EObject e2) {
           StringConcatenation _builder = new StringConcatenation();
           _builder.append(e1, "");
           CharSequence _genPlainText = PlainText.this.genPlainText(e2);
           _builder.append(_genPlainText, "");
-          return _builder;
+          return _builder.toString();
         }
       };
-    CharSequence _fold = IterableExtensions.<EObject, CharSequence>fold(_contents, _builder, _function);
+    String _fold = IterableExtensions.<EObject, String>fold(_contents, _builder.toString(), _function);
     return _fold;
   }
   
@@ -43,16 +43,16 @@ public class PlainText {
   protected CharSequence _genPlainText(final Emphasize em) {
     EList<TextOrMarkup> _contents = em.getContents();
     StringConcatenation _builder = new StringConcatenation();
-    final Function2<CharSequence,TextOrMarkup,CharSequence> _function = new Function2<CharSequence,TextOrMarkup,CharSequence>() {
-        public CharSequence apply(final CharSequence e1, final TextOrMarkup e2) {
+    final Function2<String,TextOrMarkup,String> _function = new Function2<String,TextOrMarkup,String>() {
+        public String apply(final String e1, final TextOrMarkup e2) {
           StringConcatenation _builder = new StringConcatenation();
           _builder.append(e1, "");
           CharSequence _genPlainText = PlainText.this.genPlainText(e2);
           _builder.append(_genPlainText, "");
-          return _builder;
+          return _builder.toString();
         }
       };
-    CharSequence _fold = IterableExtensions.<TextOrMarkup, CharSequence>fold(_contents, _builder, _function);
+    String _fold = IterableExtensions.<TextOrMarkup, String>fold(_contents, _builder.toString(), _function);
     return _fold;
   }
   
@@ -62,7 +62,7 @@ public class PlainText {
       StringConcatenation _builder = new StringConcatenation();
       String _text = l.getText();
       _builder.append(_text, "");
-      final CharSequence text = _builder;
+      final String text = _builder.toString();
       CharSequence _xifexpression = null;
       String _string = text.toString();
       boolean _notEquals = (!Objects.equal(_string, text));

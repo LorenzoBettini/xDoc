@@ -16,7 +16,6 @@ import org.eclipse.xtext.common.types.JvmIdentifiableElement;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.xbase.XbasePackage;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -25,9 +24,9 @@ import org.eclipse.xtext.xtype.XtypePackage;
 
 @SuppressWarnings("all")
 public class GitExtensions {
-  private final static String XTEXT_BASE_DIR = "https://github.com/eclipse/xtext/blob/v2.3.0/plugins/";
+  private final static String XTEXT_BASE_DIR = "https://github.com/eclipse/xtext/blob/v2.4.2/plugins/";
   
-  private final static String XTEND_BASE_DIR = "https://github.com/eclipse/xtend/blob/v2.3.0/plugins/";
+  private final static String XTEND_BASE_DIR = GitExtensions.XTEXT_BASE_DIR;
   
   private final static String MWE_BASE_DIR = "https://github.com/eclipse/mwe/blob/v2.3.0/plugins/";
   
@@ -99,7 +98,7 @@ public class GitExtensions {
   public String gitLink(final JvmIdentifiableElement ie) {
     String _xblockexpression = null;
     {
-      CharSequence _switchResult = null;
+      String _switchResult = null;
       String _qualifiedName = ie.getQualifiedName();
       final String name = _qualifiedName;
       boolean _matched = false;
@@ -391,12 +390,12 @@ public class GitExtensions {
         boolean _startsWith_32 = name.startsWith("org.xtext.");
         if (_startsWith_32) {
           _matched=true;
-          CharSequence _xblockexpression_1 = null;
+          String _xblockexpression_1 = null;
           {
             String[] _split = name.split("\\.");
-            final String languageID = ((List<String>)Conversions.doWrapArray(_split)).get(2);
+            final String languageID = _split[2];
             String[] _split_1 = name.split("\\.");
-            final String pluginSuffix = ((List<String>)Conversions.doWrapArray(_split_1)).get(3);
+            final String pluginSuffix = _split_1[3];
             String _xifexpression = null;
             boolean _equals = Objects.equal(pluginSuffix, "examples");
             if (_equals) {
@@ -418,7 +417,7 @@ public class GitExtensions {
               }
             }
             _builder.append("/src/");
-            _xblockexpression_1 = (_builder);
+            _xblockexpression_1 = (_builder.toString());
           }
           _switchResult = _xblockexpression_1;
         }
@@ -426,14 +425,20 @@ public class GitExtensions {
       if (!_matched) {
         _switchResult = "";
       }
-      final CharSequence prefix = _switchResult;
+      final String prefix = _switchResult;
       String _xifexpression = null;
       int _length = prefix.length();
       boolean _notEquals = (_length != 0);
       if (_notEquals) {
         String _switchResult_1 = null;
-        Resource _eResource = ie==null?(Resource)null:ie.eResource();
-        URI _uRI = _eResource==null?(URI)null:_eResource.getURI();
+        Resource _eResource = null;
+        if (ie!=null) {
+          _eResource=ie.eResource();
+        }
+        URI _uRI = null;
+        if (_eResource!=null) {
+          _uRI=_eResource.getURI();
+        }
         final URI uri = _uRI;
         boolean _matched_1 = false;
         if (!_matched_1) {

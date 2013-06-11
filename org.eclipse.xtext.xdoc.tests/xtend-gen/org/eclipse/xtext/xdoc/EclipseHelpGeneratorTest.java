@@ -8,6 +8,7 @@ import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xdoc.XdocInjectorProvider;
 import org.eclipse.xtext.xdoc.generator.EclipseHelpGenerator;
@@ -21,17 +22,20 @@ import org.eclipse.xtext.xdoc.xdoc.XdocFile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(value = XtextRunner.class)
-@InjectWith(value = XdocInjectorProvider.class)
+@RunWith(XtextRunner.class)
+@InjectWith(XdocInjectorProvider.class)
 @SuppressWarnings("all")
 public class EclipseHelpGeneratorTest {
   @Inject
+  @Extension
   private ParseHelperExtensions<XdocFile> _parseHelperExtensions;
   
   @Inject
+  @Extension
   private EclipseHelpGenerator _eclipseHelpGenerator;
   
   @Inject
+  @Extension
   private StatefulEclipseHelpGenerator _statefulEclipseHelpGenerator;
   
   @Inject
@@ -47,13 +51,18 @@ public class EclipseHelpGeneratorTest {
     Assert.assertTrue(_exists);
   }
   
-  public void testGenCode() throws Exception {
-    String _plus = (ParserTestConstants.TEST_FILE_DIR + "codeTest.xdoc");
-    final XdocFile file = this.getDoc(_plus);
-    AbstractSection _mainSection = file.getMainSection();
-    final Document doc = ((Document) _mainSection);
-    this._statefulEclipseHelpGenerator.generate(doc);
-    final Pair<String,Integer> v = Pair.<String, Integer>of("foo", Integer.valueOf(3));
+  public Pair<String,Integer> testGenCode() throws Exception {
+    Pair<String,Integer> _xblockexpression = null;
+    {
+      String _plus = (ParserTestConstants.TEST_FILE_DIR + "codeTest.xdoc");
+      final XdocFile file = this.getDoc(_plus);
+      AbstractSection _mainSection = file.getMainSection();
+      final Document doc = ((Document) _mainSection);
+      this._statefulEclipseHelpGenerator.generate(doc);
+      Pair<String,Integer> _mappedTo = Pair.<String, Integer>of("foo", Integer.valueOf(3));
+      _xblockexpression = (_mappedTo);
+    }
+    return _xblockexpression;
   }
   
   public XdocFile getDoc(final String fileName) {
@@ -61,7 +70,7 @@ public class EclipseHelpGeneratorTest {
       String _plus = (ParserTestConstants.TEST_FILE_DIR + fileName);
       XdocFile _docFromFile = this._parseHelperExtensions.getDocFromFile(_plus);
       return _docFromFile;
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
