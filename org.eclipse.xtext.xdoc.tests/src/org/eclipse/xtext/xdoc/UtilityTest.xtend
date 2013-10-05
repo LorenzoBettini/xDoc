@@ -126,6 +126,26 @@ public class UtilityTest {
 		"<span class=\"string\">&apos;\\[mein\\]&apos;</span>".assertEquals(code)
 	}
 
+	@Test	
+	def testFormatCode_NL() {
+		val utils = new Utils()
+		val code = utils.formatCode("This contains\n a newline char", null)
+		'''
+		This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char'''.toString
+		.assertEquals(code)
+	}
+
+	@Test	
+	def testFormatCode_CR() {
+		val utils = new Utils()
+		val code = utils.formatCode("This contains\r\n a newline char", null)
+		'''
+		This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char'''.toString
+		.assertEquals(code)
+	}
+
 	def create XdocFactory::eINSTANCE.createLangDef langDef() {
 		langDef.keywords += newArrayList("foo", "bar", "baz", "dfsdf", "wweee", "dsfsd")
 	}
