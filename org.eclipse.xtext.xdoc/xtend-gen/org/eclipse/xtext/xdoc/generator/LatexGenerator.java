@@ -100,7 +100,7 @@ public class LatexGenerator implements IConfigurableGenerator {
     Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
     for (final EObject element : _iterable) {
       if ((element instanceof Document)) {
-        final Document doc = ((Document) ((Document)element));
+        final Document doc = ((Document) element);
         String _name = doc.getName();
         String _fileName = this.fileName(_name);
         CharSequence _generate = this.generate(doc);
@@ -405,10 +405,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     boolean _matched = false;
     if (!_matched) {
       if (sec instanceof Part) {
+        final Part _part = (Part)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\part{");
-        TextOrMarkup _title = ((Part)sec).getTitle();
+        TextOrMarkup _title = _part.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -417,10 +418,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     }
     if (!_matched) {
       if (sec instanceof Chapter) {
+        final Chapter _chapter = (Chapter)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\chapter{");
-        TextOrMarkup _title = ((Chapter)sec).getTitle();
+        TextOrMarkup _title = _chapter.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -429,10 +431,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     }
     if (!_matched) {
       if (sec instanceof Section) {
+        final Section _section = (Section)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\section{");
-        TextOrMarkup _title = ((Section)sec).getTitle();
+        TextOrMarkup _title = _section.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -441,10 +444,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     }
     if (!_matched) {
       if (sec instanceof Section2) {
+        final Section2 _section2 = (Section2)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\subsection{");
-        TextOrMarkup _title = ((Section2)sec).getTitle();
+        TextOrMarkup _title = _section2.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -453,10 +457,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     }
     if (!_matched) {
       if (sec instanceof Section3) {
+        final Section3 _section3 = (Section3)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\subsubsection{");
-        TextOrMarkup _title = ((Section3)sec).getTitle();
+        TextOrMarkup _title = _section3.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -465,10 +470,11 @@ public class LatexGenerator implements IConfigurableGenerator {
     }
     if (!_matched) {
       if (sec instanceof Section4) {
+        final Section4 _section4 = (Section4)sec;
         _matched=true;
         StringConcatenation _builder_1 = new StringConcatenation();
         _builder_1.append("\\paragraph{");
-        TextOrMarkup _title = ((Section4)sec).getTitle();
+        TextOrMarkup _title = _section4.getTitle();
         CharSequence _genNonParContent = this.genNonParContent(_title);
         _builder_1.append(_genNonParContent, "");
         _builder_1.append("}");
@@ -481,22 +487,25 @@ public class LatexGenerator implements IConfigurableGenerator {
     boolean _matched_1 = false;
     if (!_matched_1) {
       if (sec instanceof Part) {
+        final Part _part = (Part)sec;
         _matched_1=true;
-        CharSequence _genLabel = this.genLabel(sec);
+        CharSequence _genLabel = this.genLabel(_part);
         _switchResult_1 = _genLabel;
       }
     }
     if (!_matched_1) {
       if (sec instanceof Chapter) {
+        final Chapter _chapter = (Chapter)sec;
         _matched_1=true;
-        CharSequence _genLabel = this.genLabel(sec);
+        CharSequence _genLabel = this.genLabel(_chapter);
         _switchResult_1 = _genLabel;
       }
     }
     if (!_matched_1) {
       if (sec instanceof Section) {
+        final Section _section = (Section)sec;
         _matched_1=true;
-        CharSequence _genLabel = this.genLabel(sec);
+        CharSequence _genLabel = this.genLabel(_section);
         _switchResult_1 = _genLabel;
       }
     }

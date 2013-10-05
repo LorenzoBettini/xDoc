@@ -94,40 +94,45 @@ public class EclipseHelpUriUtil {
     boolean _matched = false;
     if (!_matched) {
       if (it instanceof PartRef) {
+        final PartRef _partRef = (PartRef)it;
         _matched=true;
-        Part _part = ((PartRef)it).getPart();
+        Part _part = _partRef.getPart();
         URI _targetURI = this.getTargetURI(_part);
         _switchResult = _targetURI;
       }
     }
     if (!_matched) {
       if (it instanceof ChapterRef) {
+        final ChapterRef _chapterRef = (ChapterRef)it;
         _matched=true;
-        Chapter _chapter = ((ChapterRef)it).getChapter();
+        Chapter _chapter = _chapterRef.getChapter();
         URI _targetURI = this.getTargetURI(_chapter);
         _switchResult = _targetURI;
       }
     }
     if (!_matched) {
       if (it instanceof SectionRef) {
+        final SectionRef _sectionRef = (SectionRef)it;
         _matched=true;
-        Section _section = ((SectionRef)it).getSection();
+        Section _section = _sectionRef.getSection();
         URI _targetURI = this.getTargetURI(_section);
         _switchResult = _targetURI;
       }
     }
     if (!_matched) {
       if (it instanceof Section2Ref) {
+        final Section2Ref _section2Ref = (Section2Ref)it;
         _matched=true;
-        Section2 _section2 = ((Section2Ref)it).getSection2();
+        Section2 _section2 = _section2Ref.getSection2();
         URI _targetURI = this.getTargetURI(_section2);
         _switchResult = _targetURI;
       }
     }
     if (!_matched) {
       if (it instanceof Document) {
+        final Document _document = (Document)it;
         _matched=true;
-        URI _targetURI = this.targetURI(((Identifiable) it));
+        URI _targetURI = this.targetURI(((Identifiable) _document));
         _switchResult = _targetURI;
       }
     }
