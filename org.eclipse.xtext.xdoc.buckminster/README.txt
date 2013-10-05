@@ -1,11 +1,10 @@
-The build.cquery is used to materialize the target platform and the
+The projects-platform.cquery is used to materialize the target platform and the
 projects in the workspace.
 
-The build-using-local-mirror.cquery is an example to materialize the target platform
-using a local eclipse mirror obtained using the b3 aggregator on the
-file aggregator/kepler-xtext-swtbot-mirror.b3aggr; 
+You can create a local eclipse mirror of the target platform using 
+the b3 aggregator on a b3aggr file in the directrory aggregator; 
 
-it relies on buckminster-mirror.properties which maps
+The buckminster-mirror.properties maps
 the URLs for eclipse repositories (used in the RMAP) to the
 local mirror using b3 and the b3aggr file in the aggregator directory.
 
@@ -16,4 +15,4 @@ want to use the local aggregated mirror, you must pass
 
 -Dbuild.properties=file:/path/to/buckminster-local.properties
 
-Happy building with Bucky! :)
+Happy building with Buckminster! :)
