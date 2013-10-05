@@ -11,9 +11,6 @@ import org.eclipse.xtext.xdoc.xdoc.Document
 import org.eclipse.xtext.xdoc.xdoc.LangDef
 import org.eclipse.xtext.xdoc.xdoc.XdocFactory
 
-import static extension java.net.URLDecoder.*
-import static extension java.net.URLEncoder.*
-
 class Utils {
 
 	def boolean isInlineCode (CodeBlock cb) {
@@ -120,7 +117,7 @@ class Utils {
 	}
 
 	def String whitespace2Entities(String s) {
-		return s.escapeHTMLChars.replace(' ','&nbsp;').replace('\n','<br/>\n').replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
+		return s.escapeHTMLChars.replace(' ','&nbsp;').replace('\r','').replace('\n','<br/>\n').replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
 	}
 
 	def calcIndent(CodeBlock cb) {

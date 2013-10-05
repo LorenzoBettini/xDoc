@@ -183,6 +183,32 @@ public class UtilityTest {
     Assert.assertEquals("<span class=\"string\">&apos;\\[mein\\]&apos;</span>", code);
   }
   
+  @Test
+  public void testFormatCode_NL() {
+    Utils _utils = new Utils();
+    final Utils utils = _utils;
+    final String code = utils.formatCode("This contains\n a newline char", null);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    String _string = _builder.toString();
+    Assert.assertEquals(_string, code);
+  }
+  
+  @Test
+  public void testFormatCode_CR() {
+    Utils _utils = new Utils();
+    final Utils utils = _utils;
+    final String code = utils.formatCode("This contains\r\n a newline char", null);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    String _string = _builder.toString();
+    Assert.assertEquals(_string, code);
+  }
+  
   public LangDef langDef() {
     final ArrayList<?> _cacheKey = CollectionLiterals.newArrayList();
     final LangDef _result;
