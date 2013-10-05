@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.eclipse.xtext.common.types.JvmAnnotationType;
 import org.eclipse.xtext.common.types.JvmDeclaredType;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IFileSystemAccessExtension2;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -110,16 +112,20 @@ public class StatefulEclipseHelpGenerator {
     this.access = ((IFileSystemAccess) accessExtension2);
     EList<EObject> _contents = res.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
-    AbstractSection _mainSection = null;
-    EList<EObject> _contents_1 = res.getContents();
-    EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
-    if (((XdocFile) _head_1)!=null) {
-      _mainSection=((XdocFile) _head_1).getMainSection();
-    }
-    final AbstractSection doc = _mainSection;
-    if ((doc instanceof Document)) {
-      this.uriUtil.initialize(((Document) doc));
-      this.generateDoc(((Document) doc), this.access);
+    if ((_head instanceof XdocFile)) {
+      EList<EObject> _contents_1 = res.getContents();
+      EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
+      AbstractSection _mainSection = null;
+      EList<EObject> _contents_2 = res.getContents();
+      EObject _head_2 = IterableExtensions.<EObject>head(_contents_2);
+      if (((XdocFile) _head_2)!=null) {
+        _mainSection=((XdocFile) _head_2).getMainSection();
+      }
+      final AbstractSection doc = _mainSection;
+      if ((doc instanceof Document)) {
+        this.uriUtil.initialize(((Document) ((Document)doc)));
+        this.generateDoc(((Document) ((Document)doc)), this.access);
+      }
     }
   }
   
@@ -403,8 +409,10 @@ public class StatefulEclipseHelpGenerator {
     _builder.newLine();
     _builder.append("<link href=\"code.css\" rel=\"stylesheet\" type=\"text/css\">");
     _builder.newLine();
-    _builder.append("<link rel=\"home\" href=\"xtext.html\" title=\"\">");
-    _builder.newLine();
+    _builder.append("<link rel=\"home\" href=\"");
+    _builder.append(homeFileName, "");
+    _builder.append("\" title=\"\">");
+    _builder.newLineIfNotEmpty();
     _builder.append("</head>");
     _builder.newLine();
     _builder.append("<body>");
@@ -454,42 +462,36 @@ public class StatefulEclipseHelpGenerator {
     boolean _matched = false;
     if (!_matched) {
       if (section instanceof Part) {
-        final Part _part = (Part)section;
         _matched=true;
         _switchResult = "h1";
       }
     }
     if (!_matched) {
       if (section instanceof Chapter) {
-        final Chapter _chapter = (Chapter)section;
         _matched=true;
         _switchResult = "h1";
       }
     }
     if (!_matched) {
       if (section instanceof Section) {
-        final Section _section = (Section)section;
         _matched=true;
         _switchResult = "h2";
       }
     }
     if (!_matched) {
       if (section instanceof Section2) {
-        final Section2 _section2 = (Section2)section;
         _matched=true;
         _switchResult = "h3";
       }
     }
     if (!_matched) {
       if (section instanceof Section3) {
-        final Section3 _section3 = (Section3)section;
         _matched=true;
         _switchResult = "h4";
       }
     }
     if (!_matched) {
       if (section instanceof Section4) {
-        final Section4 _section4 = (Section4)section;
         _matched=true;
         _switchResult = "h5";
       }
@@ -719,12 +721,52 @@ public class StatefulEclipseHelpGenerator {
     return _builder;
   }
   
+  public Object noop() {
+    return null;
+  }
+  
+  public URI collapse(final URI uri) {
+    URI _xblockexpression = null;
+    {
+      final ArrayList<Object> segments = CollectionLiterals.<Object>newArrayList();
+      List<String> _segmentsList = uri.segmentsList();
+      for (final String s : _segmentsList) {
+        boolean _matched = false;
+        if (!_matched) {
+          if (Objects.equal(s,".")) {
+            _matched=true;
+            this.noop();
+          }
+        }
+        if (!_matched) {
+          if (Objects.equal(s,"..")) {
+            _matched=true;
+            int _size = segments.size();
+            int _minus = (_size - 1);
+            segments.remove(_minus);
+          }
+        }
+        if (!_matched) {
+          segments.add(s);
+        }
+      }
+      String _scheme = uri.scheme();
+      String _plus = (_scheme + ":/");
+      String _join = IterableExtensions.join(segments, "/");
+      String _plus_1 = (_plus + _join);
+      URI _createURI = URI.createURI(_plus_1);
+      _xblockexpression = (_createURI);
+    }
+    return _xblockexpression;
+  }
+  
   protected CharSequence _generate(final ImageRef img) {
     CharSequence _xblockexpression = null;
     {
       String _path = img.getPath();
       final String escapedPath = this.utils.unescapeXdocChars(_path);
-      final URI absoluteOutputURI = this.accessExtension2.getURI(escapedPath, Outlets.ECLIPSE_HELP);
+      URI _uRI = this.accessExtension2.getURI(escapedPath, Outlets.ECLIPSE_HELP);
+      final URI absoluteOutputURI = this.collapse(_uRI);
       String _targetDocumentName = this.uriUtil.getTargetDocumentName();
       final URI documentURI = this.accessExtension2.getURI(_targetDocumentName, Outlets.ECLIPSE_HELP);
       final URI imageChapterRelativeURI = absoluteOutputURI.deresolve(documentURI);
