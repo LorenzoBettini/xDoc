@@ -1,5 +1,6 @@
 setpref targetPlatformPath="${target.platform}"
-resolve "${projects.location}/org.eclipse.xtext.xdoc.buckminster/build.cquery"
+resolve "${projects.location}/org.eclipse.xtext.xdoc.buckminster/projects-platform.cquery"
+resolve "${projects.location}/org.eclipse.xtext.xdoc.buckminster/project.cquery"
 
 build
 

@@ -16,6 +16,8 @@
 							Default: http://download.eclipse.org
 -->
 <project name="Buckminster Headless" default="buckminster">
+	<property name="WORKSPACE" location="${ant.file}/../../" />
+	
 	<import file="common.ant" as="common" />
 
 	<target name="buckminster" depends="common.cleanup,install.buckminster.headless" description="description">
