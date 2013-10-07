@@ -8,12 +8,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static extension org.junit.Assert.*
+import org.eclipse.xtext.xdoc.generator.util.Utils
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(XdocInjectorProvider))
 class EclipseHelpGeneratorTest2 {
 	
 	@Inject extension CompilationTestHelper
+	@Inject extension Utils
 	
 	@Test
 	def public void testFormattedCode() {
@@ -140,8 +142,9 @@ class&nbsp;Foo&nbsp;{<br/>
 	
 	def void assertGeneratedHtml(CharSequence input, CharSequence expected) {
 		input.compile[
-			expected.toString.assertEquals(
-				getAllGeneratedResources.get("DEFAULT_OUTPUTMyFile_1.html"))
+			expected.toString.removeCR.assertEquals(
+				getAllGeneratedResources.
+					get("DEFAULT_OUTPUTMyFile_1.html").removeCR)
 		]
 	}
 }
