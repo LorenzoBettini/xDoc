@@ -57,7 +57,7 @@ class ParserTest {
 				((( p.contents
 						.tail.head  as Emphasize).contents.head).contents.head as TextPart)
 						.text)
-		assertEquals(secondPart,  (p.contents.tail.tail.head as TextPart).text);
+		assertEquals(secondPart,  (p.contents.tail.tail.head as TextPart).text.replace('\r', ''));
 	}
 
 	@Test

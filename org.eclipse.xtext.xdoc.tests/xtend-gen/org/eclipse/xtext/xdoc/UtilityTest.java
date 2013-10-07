@@ -222,7 +222,8 @@ public class UtilityTest {
     final Utils utils = _utils;
     final String code = utils.formatCode(input, null);
     String _string = expected.toString();
-    Assert.assertEquals(_string, code);
+    String _replace = _string.replace("\r", "");
+    Assert.assertEquals(_replace, code);
   }
   
   public LangDef langDef() {
