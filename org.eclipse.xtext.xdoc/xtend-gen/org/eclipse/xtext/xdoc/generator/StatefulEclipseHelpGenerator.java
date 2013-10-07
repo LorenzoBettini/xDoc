@@ -1052,64 +1052,74 @@ public class StatefulEclipseHelpGenerator {
           _xifexpression_1 = Collections.EMPTY_LIST;
         }
         final Iterable<EObject> list = _xifexpression_1;
+        String formattedCode = "";
         EList<EObject> _contents_4 = cb.getContents();
         EObject _head_1 = IterableExtensions.<EObject>head(_contents_4);
-        CharSequence _generateCode_1 = this.generateCode(_head_1);
-        String _trimLines = this.trimLines(_generateCode_1, indentToRemove);
-        final String first = _trimLines.replaceAll("\\A(\\s*\n)*", "");
-        String _xifexpression_2 = null;
-        EList<EObject> _contents_5 = cb.getContents();
-        EObject _last = IterableExtensions.<EObject>last(_contents_5);
-        EList<EObject> _contents_6 = cb.getContents();
-        EObject _head_2 = IterableExtensions.<EObject>head(_contents_6);
-        boolean _notEquals = (!Objects.equal(_last, _head_2));
+        boolean _notEquals = (!Objects.equal(_head_1, null));
         if (_notEquals) {
+          EList<EObject> _contents_5 = cb.getContents();
+          EObject _head_2 = IterableExtensions.<EObject>head(_contents_5);
+          CharSequence _generateCode_1 = this.generateCode(_head_2);
+          String _trimLines = this.trimLines(_generateCode_1, indentToRemove);
+          final String first = _trimLines.replaceAll("\\A(\\s*\n)*", "");
+          String _xifexpression_2 = null;
+          EList<EObject> _contents_6 = cb.getContents();
+          EObject _last = IterableExtensions.<EObject>last(_contents_6);
           EList<EObject> _contents_7 = cb.getContents();
-          EObject _last_1 = IterableExtensions.<EObject>last(_contents_7);
-          CharSequence _generateCode_2 = this.generateCode(_last_1);
-          String _trimLines_1 = this.trimLines(_generateCode_2, indentToRemove);
-          _xifexpression_2 = _trimLines_1.replaceAll("(\\s*\n)*\\Z", "");
-        } else {
-          String _xblockexpression_1 = null;
+          EObject _head_3 = IterableExtensions.<EObject>head(_contents_7);
+          boolean _notEquals_1 = (!Objects.equal(_last, _head_3));
+          if (_notEquals_1) {
+            EList<EObject> _contents_8 = cb.getContents();
+            EObject _last_1 = IterableExtensions.<EObject>last(_contents_8);
+            CharSequence _generateCode_2 = this.generateCode(_last_1);
+            String _trimLines_1 = this.trimLines(_generateCode_2, indentToRemove);
+            _xifexpression_2 = _trimLines_1.replaceAll("(\\s*\n)*\\Z", "");
+          } else {
+            String _xblockexpression_1 = null;
+            {
+              first.replaceAll("(\\s*\n)*\\Z", "");
+              _xblockexpression_1 = "";
+            }
+            _xifexpression_2 = _xblockexpression_1;
+          }
+          final String last = _xifexpression_2;
+          StringConcatenation _builder_1 = new StringConcatenation();
+          LangDef _language_1 = cb.getLanguage();
+          String _formatCode_1 = this.utils.formatCode(first, _language_1);
+          _builder_1.append(_formatCode_1, "");
+          _builder_1.newLineIfNotEmpty();
           {
-            first.replaceAll("(\\s*\n)*\\Z", "");
-            _xblockexpression_1 = "";
+            for(final EObject code : list) {
+              CharSequence _generateCode_3 = this.generateCode(code);
+              String _trimLines_2 = this.trimLines(_generateCode_3, indentToRemove);
+              LangDef _language_2 = cb.getLanguage();
+              String _formatCode_2 = this.utils.formatCode(_trimLines_2, _language_2);
+              _builder_1.append(_formatCode_2, "");
+              _builder_1.newLineIfNotEmpty();
+            }
           }
-          _xifexpression_2 = _xblockexpression_1;
+          LangDef _language_3 = cb.getLanguage();
+          String _formatCode_3 = this.utils.formatCode(last, _language_3);
+          _builder_1.append(_formatCode_3, "");
+          _builder_1.newLineIfNotEmpty();
+          formattedCode = _builder_1.toString();
         }
-        final String last = _xifexpression_2;
-        StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("<div class=\"literallayout\">");
-        _builder_1.newLine();
-        _builder_1.append("<div class=\"incode\">");
-        _builder_1.newLine();
-        _builder_1.append("<p class=\"code\">");
-        _builder_1.newLine();
-        LangDef _language_1 = cb.getLanguage();
-        String _formatCode_1 = this.utils.formatCode(first, _language_1);
-        _builder_1.append(_formatCode_1, "");
-        _builder_1.newLineIfNotEmpty();
-        {
-          for(final EObject code : list) {
-            CharSequence _generateCode_3 = this.generateCode(code);
-            String _trimLines_2 = this.trimLines(_generateCode_3, indentToRemove);
-            LangDef _language_2 = cb.getLanguage();
-            String _formatCode_2 = this.utils.formatCode(_trimLines_2, _language_2);
-            _builder_1.append(_formatCode_2, "");
-            _builder_1.newLineIfNotEmpty();
-          }
-        }
-        LangDef _language_3 = cb.getLanguage();
-        String _formatCode_3 = this.utils.formatCode(last, _language_3);
-        _builder_1.append(_formatCode_3, "");
-        _builder_1.newLineIfNotEmpty();
-        _builder_1.append("</p>");
-        _builder_1.newLine();
-        _builder_1.append("</div>");
-        _builder_1.newLine();
-        _builder_1.append("</div>");
-        _builder_1.newLine();
-        _xblockexpression = _builder_1;
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("<div class=\"literallayout\">");
+        _builder_2.newLine();
+        _builder_2.append("<div class=\"incode\">");
+        _builder_2.newLine();
+        _builder_2.append("<p class=\"code\">");
+        _builder_2.newLine();
+        _builder_2.append(formattedCode, "");
+        _builder_2.newLineIfNotEmpty();
+        _builder_2.append("</p>");
+        _builder_2.newLine();
+        _builder_2.append("</div>");
+        _builder_2.newLine();
+        _builder_2.append("</div>");
+        _builder_2.newLine();
+        _xblockexpression = _builder_2;
       }
       _xifexpression = _xblockexpression;
     }
