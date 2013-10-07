@@ -400,22 +400,32 @@ class StatefulEclipseHelpGenerator {
 					cb.contents.tail.take(cb.contents.size - 2)
 				else
 					Collections::EMPTY_LIST
-			val first = cb.contents.head.generateCode.trimLines(indentToRemove).replaceAll("\\A(\\s*\n)*", "")
-			val last = if(cb.contents.last != cb.contents.head) {
+			
+			var formattedCode = ""
+			if (cb.contents.head != null) {
+				val first = cb.contents.head.generateCode.trimLines(indentToRemove).replaceAll("\\A(\\s*\n)*", "")
+				val last = if(cb.contents.last != cb.contents.head) {
 					cb.contents.last.generateCode.trimLines(indentToRemove).replaceAll("(\\s*\n)*\\Z", "")
 				} else{
 					first.replaceAll("(\\s*\n)*\\Z", "")
 					""
 				}
-			'''	
-				<div class="literallayout">
-				<div class="incode">
-				<p class="code">
+				formattedCode =
+				'''
 				«first.formatCode(cb.language)»
 				«FOR code: list»
 					«code.generateCode.trimLines(indentToRemove).formatCode(cb.language)»
 				«ENDFOR»
 				«last.formatCode(cb.language)»
+				'''	
+			}
+			
+			
+			'''	
+				<div class="literallayout">
+				<div class="incode">
+				<p class="code">
+				«formattedCode»
 				</p>
 				</div>
 				</div>

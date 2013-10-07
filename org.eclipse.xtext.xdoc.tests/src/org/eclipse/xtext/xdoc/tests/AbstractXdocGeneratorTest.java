@@ -34,7 +34,8 @@ import org.eclipse.xtext.xdoc.xdoc.XdocFile;
 public abstract class AbstractXdocGeneratorTest extends AbstractXtextTests {
 
 	protected static final String RESULT_DIR = "test-gen/";
-	public static String EXPECTATION_DIR = Outlets.WEB_SITE_PATH_NAME + "/";
+	//public static String EXPECTATION_DIR = Outlets.WEB_SITE_PATH_NAME + "/";
+	public static String EXPECTATION_DIR = "expectations/";
 	public static String SRC_DIR = "testfiles/";
 	protected ParserTest pTest;
 	private XpandExecutionContextImpl xpandCtx;

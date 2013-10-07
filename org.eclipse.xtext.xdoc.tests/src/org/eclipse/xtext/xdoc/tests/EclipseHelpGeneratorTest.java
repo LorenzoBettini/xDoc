@@ -15,12 +15,15 @@ import org.eclipse.xtext.xdoc.xdoc.Document;
 import org.eclipse.xtext.xdoc.xdoc.XdocFile;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 
 	private static final String RESULT_FILE = RESULT_DIR + "mytestmodel.xdoc.html";
 
-
+	@Inject
+	private Provider<JavaIoFileSystemAccess> javaFSAccessProvider;
+	
 	@Override
 	public void testGenCodeWithLanguage() throws Exception {
 		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "codeWithLanguageTest.xdoc");
@@ -34,7 +37,7 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "codeTest.xdoc");
 		Document doc = (Document) file.getMainSection();
 		generate(doc);
-		validate(EXPECTATION_DIR + "code.html", RESULT_DIR + "mytestmodel.xdoc-0.html");
+		validate(EXPECTATION_DIR + "codeTest_1.html", RESULT_DIR + "codeTest_1.html");
 	}
 
 	@Override
@@ -154,7 +157,7 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 	private EclipseHelpGenerator generator;
 
 	protected void generate(Document obj) throws Exception {
-		AbstractFileSystemAccess fsa = new JavaIoFileSystemAccess();
+		AbstractFileSystemAccess fsa = javaFSAccessProvider.get();
 		fsa.setOutputPath(System.getProperty("user.dir") + File.separatorChar+"test-gen"+ File.separatorChar);
 		generator.doGenerate(obj.eResource(), fsa);
 	}
