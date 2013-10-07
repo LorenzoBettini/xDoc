@@ -111,7 +111,8 @@ public class ParserTest {
       Iterable<EObject> _tail_2 = IterableExtensions.<EObject>tail(_tail_1);
       EObject _head_5 = IterableExtensions.<EObject>head(_tail_2);
       String _text_3 = ((TextPart) _head_5).getText();
-      Assert.assertEquals(secondPart, _text_3);
+      String _replace = _text_3.replace("\r", "");
+      Assert.assertEquals(secondPart, _replace);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

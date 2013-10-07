@@ -188,7 +188,7 @@ public class UtilityTest {
 	def private assertFormatCode(CharSequence input, CharSequence expected) {
 		val utils = new Utils()
 		val code = utils.formatCode(input, null)
-		expected.toString
+		expected.toString.replace("\r", "")
 		.assertEquals(code)
 	}
 
