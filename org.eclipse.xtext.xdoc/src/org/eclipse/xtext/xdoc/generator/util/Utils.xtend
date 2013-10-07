@@ -117,12 +117,12 @@ class Utils {
 	}
 
 	def String whitespace2Entities(String s) {
-		return s.escapeHTMLChars.replace(' ','&nbsp;').replace('\r','').replace('\n','<br/>\n').replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
+		return s.escapeHTMLChars.removeCR.replace(' ','&nbsp;').replace('\n','<br/>\n').replace('\t','&nbsp;&nbsp;&nbsp;&nbsp;')
 	}
 
 	def calcIndent(CodeBlock cb) {
 		if(cb.getContents().size() > 0 && cb.getContents().get(0) instanceof Code){
-			val code0 = (cb.getContents().get(0) as Code).getContents()
+			val code0 = (cb.getContents().get(0) as Code).getContents().removeCR
 			var indent = code0.length()
 			indent = indent - code0.replaceAll("^(\n*)\\s*", "$1").length()
 		}
@@ -134,5 +134,9 @@ class Utils {
 	
 	def boolean nullOrEmpty(String s) {
 		return s == null || s.trim.length==0
+	}
+
+	def removeCR(CharSequence input) {
+		input.toString.replace('\r', '')
 	}
 }

@@ -224,10 +224,10 @@ public class Utils {
   
   public String whitespace2Entities(final String s) {
     String _escapeHTMLChars = this.escapeHTMLChars(s);
-    String _replace = _escapeHTMLChars.replace(" ", "&nbsp;");
-    String _replace_1 = _replace.replace("\r", "");
-    String _replace_2 = _replace_1.replace("\n", "<br/>\n");
-    return _replace_2.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+    String _removeCR = this.removeCR(_escapeHTMLChars);
+    String _replace = _removeCR.replace(" ", "&nbsp;");
+    String _replace_1 = _replace.replace("\n", "<br/>\n");
+    return _replace_1.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
   }
   
   public int calcIndent(final CodeBlock cb) {
@@ -248,7 +248,8 @@ public class Utils {
       {
         EList<EObject> _contents_2 = cb.getContents();
         EObject _get_1 = _contents_2.get(0);
-        final String code0 = ((Code) _get_1).getContents();
+        String _contents_3 = ((Code) _get_1).getContents();
+        final String code0 = this.removeCR(_contents_3);
         int indent = code0.length();
         String _replaceAll = code0.replaceAll("^(\n*)\\s*", "$1");
         int _length = _replaceAll.length();
@@ -293,5 +294,11 @@ public class Utils {
       _or = _equals_1;
     }
     return _or;
+  }
+  
+  public String removeCR(final CharSequence input) {
+    String _string = input.toString();
+    String _replace = _string.replace("\r", "");
+    return _replace;
   }
 }

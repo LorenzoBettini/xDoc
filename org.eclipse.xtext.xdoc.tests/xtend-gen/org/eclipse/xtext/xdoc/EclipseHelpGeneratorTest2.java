@@ -11,6 +11,7 @@ import org.eclipse.xtext.xbase.compiler.CompilationTestHelper.Result;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xdoc.XdocInjectorProvider;
+import org.eclipse.xtext.xdoc.generator.util.Utils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +23,10 @@ public class EclipseHelpGeneratorTest2 {
   @Inject
   @Extension
   private CompilationTestHelper _compilationTestHelper;
+  
+  @Inject
+  @Extension
+  private Utils _utils;
   
   @Test
   public void testFormattedCode() {
@@ -232,9 +237,11 @@ public class EclipseHelpGeneratorTest2 {
       final IAcceptor<Result> _function = new IAcceptor<Result>() {
         public void accept(final Result it) {
           String _string = expected.toString();
+          String _removeCR = EclipseHelpGeneratorTest2.this._utils.removeCR(_string);
           Map<String,CharSequence> _allGeneratedResources = it.getAllGeneratedResources();
           CharSequence _get = _allGeneratedResources.get("DEFAULT_OUTPUTMyFile_1.html");
-          Assert.assertEquals(_string, _get);
+          String _removeCR_1 = EclipseHelpGeneratorTest2.this._utils.removeCR(_get);
+          Assert.assertEquals(_removeCR, _removeCR_1);
         }
       };
       this._compilationTestHelper.compile(input, _function);
