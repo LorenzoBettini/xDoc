@@ -185,27 +185,71 @@ public class UtilityTest {
   
   @Test
   public void testFormatCode_NL() {
-    Utils _utils = new Utils();
-    final Utils utils = _utils;
-    final String code = utils.formatCode("This contains\n a newline char", null);
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("This&nbsp;contains<br/>");
     _builder.newLine();
     _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
-    String _string = _builder.toString();
-    Assert.assertEquals(_string, code);
+    this.assertFormatCode("This contains\n a newline char", _builder);
+  }
+  
+  @Test
+  public void testFormatCode_NL_01() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<br/>");
+    _builder.newLine();
+    _builder.append("This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    this.assertFormatCode("\nThis contains\n a newline char", _builder);
+  }
+  
+  @Test
+  public void testFormatCode_NL_02() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    this.assertFormatCode("\n\tThis contains\n a newline char", _builder);
   }
   
   @Test
   public void testFormatCode_CR() {
-    Utils _utils = new Utils();
-    final Utils utils = _utils;
-    final String code = utils.formatCode("This contains\r\n a newline char", null);
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("This&nbsp;contains<br/>");
     _builder.newLine();
     _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
-    String _string = _builder.toString();
+    this.assertFormatCode("This contains\r\n a newline char", _builder);
+  }
+  
+  @Test
+  public void testFormatCode_CR_01() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<br/>");
+    _builder.newLine();
+    _builder.append("This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    this.assertFormatCode("\r\nThis contains\n a newline char", _builder);
+  }
+  
+  @Test
+  public void testFormatCode_CR_02() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;contains<br/>");
+    _builder.newLine();
+    _builder.append("&nbsp;a&nbsp;newline&nbsp;char");
+    this.assertFormatCode("\r\n\tThis contains\n a newline char", _builder);
+  }
+  
+  private void assertFormatCode(final CharSequence input, final CharSequence expected) {
+    Utils _utils = new Utils();
+    final Utils utils = _utils;
+    final String code = utils.formatCode(input, null);
+    String _string = expected.toString();
     Assert.assertEquals(_string, code);
   }
   

@@ -128,21 +128,67 @@ public class UtilityTest {
 
 	@Test	
 	def testFormatCode_NL() {
-		val utils = new Utils()
-		val code = utils.formatCode("This contains\n a newline char", null)
+		"This contains\n a newline char".
+		assertFormatCode(
 		'''
 		This&nbsp;contains<br/>
-		&nbsp;a&nbsp;newline&nbsp;char'''.toString
-		.assertEquals(code)
+		&nbsp;a&nbsp;newline&nbsp;char''')
+	}
+
+	@Test	
+	def testFormatCode_NL_01() {
+		"\nThis contains\n a newline char".
+		assertFormatCode(
+		'''
+		<br/>
+		This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char''')
+	}
+
+	@Test	
+	def testFormatCode_NL_02() {
+		"\n\tThis contains\n a newline char".
+		assertFormatCode(
+		'''
+		<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char''')
 	}
 
 	@Test	
 	def testFormatCode_CR() {
-		val utils = new Utils()
-		val code = utils.formatCode("This contains\r\n a newline char", null)
+		"This contains\r\n a newline char".
+		assertFormatCode(
 		'''
 		This&nbsp;contains<br/>
-		&nbsp;a&nbsp;newline&nbsp;char'''.toString
+		&nbsp;a&nbsp;newline&nbsp;char''')
+	}
+
+	@Test	
+	def testFormatCode_CR_01() {
+		"\r\nThis contains\n a newline char".
+		assertFormatCode(
+		'''
+		<br/>
+		This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char''')
+	}
+
+	@Test	
+	def testFormatCode_CR_02() {
+		"\r\n\tThis contains\n a newline char".
+		assertFormatCode(
+		'''
+		<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;contains<br/>
+		&nbsp;a&nbsp;newline&nbsp;char''')
+	}
+
+
+	def private assertFormatCode(CharSequence input, CharSequence expected) {
+		val utils = new Utils()
+		val code = utils.formatCode(input, null)
+		expected.toString
 		.assertEquals(code)
 	}
 
