@@ -4,4 +4,6 @@ resolve "${projects.location}/org.eclipse.xtext.xdoc.buckminster/project.cquery"
 
 build
 
+junit -l "org.eclipse.xtext.xdoc.tests/AllTests.launch"  --flatXML --output "${buckminster.output.root}/test.results/AllTests.launch.xml"
+
 perform -D target.os=* -D target.ws=* -D target.arch=* org.eclipse.xtext.xdoc.site#site.p2
