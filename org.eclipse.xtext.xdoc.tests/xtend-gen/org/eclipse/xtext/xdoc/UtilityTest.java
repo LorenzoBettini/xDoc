@@ -164,7 +164,7 @@ public class UtilityTest {
     Utils _utils = new Utils();
     final Utils utils = _utils;
     final String code = utils.formatCode("\' mein foo ist bar nicht baz.", null);
-    Assert.assertEquals("<span class=\"string\">&apos;&nbsp;mein&nbsp;foo&nbsp;ist&nbsp;bar&nbsp;nicht&nbsp;baz.</span>", code);
+    Assert.assertEquals("&apos;&nbsp;mein&nbsp;foo&nbsp;ist&nbsp;bar&nbsp;nicht&nbsp;baz.", code);
   }
   
   @Test
@@ -180,7 +180,7 @@ public class UtilityTest {
     Utils _utils = new Utils();
     final Utils utils = _utils;
     final String code = utils.formatCode("\'\\[mein\\]\'", null);
-    Assert.assertEquals("<span class=\"string\">&apos;\\[mein\\]&apos;</span>", code);
+    Assert.assertEquals("<span class=\"string\">&apos;[mein]&apos;</span>", code);
   }
   
   @Test

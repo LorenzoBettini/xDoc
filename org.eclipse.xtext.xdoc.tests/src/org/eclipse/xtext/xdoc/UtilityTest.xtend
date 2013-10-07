@@ -107,7 +107,7 @@ public class UtilityTest {
 	def testFormatCode_03() {
 		val utils = new Utils()
 		val code = utils.formatCode("' mein foo ist bar nicht baz.", null)
-		"<span class=\"string\">&apos;&nbsp;mein&nbsp;foo&nbsp;ist&nbsp;bar&nbsp;nicht&nbsp;baz.</span>"
+		"&apos;&nbsp;mein&nbsp;foo&nbsp;ist&nbsp;bar&nbsp;nicht&nbsp;baz."
 			.assertEquals(code)
 	}
 
@@ -123,7 +123,7 @@ public class UtilityTest {
 	def testFormatCode_05() {
 		val utils = new Utils()
 		val code = utils.formatCode("'\\[mein\\]'", null)
-		"<span class=\"string\">&apos;\\[mein\\]&apos;</span>".assertEquals(code)
+		'<span class="string">&apos;[mein]&apos;</span>'.assertEquals(code)
 	}
 
 	@Test	
