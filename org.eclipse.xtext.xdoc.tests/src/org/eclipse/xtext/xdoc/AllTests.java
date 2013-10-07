@@ -6,7 +6,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	ParserTest.class,
-	UtilityTest.class
+	UtilityTest.class,
+	EclipseHelpGeneratorTest2.class
 })
 public class AllTests {
 
