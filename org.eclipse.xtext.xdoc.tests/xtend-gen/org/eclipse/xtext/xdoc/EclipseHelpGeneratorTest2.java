@@ -7,7 +7,6 @@ import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.util.IAcceptor;
 import org.eclipse.xtext.xbase.compiler.CompilationTestHelper;
-import org.eclipse.xtext.xbase.compiler.CompilationTestHelper.Result;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xdoc.XdocInjectorProvider;
@@ -278,11 +277,9 @@ public class EclipseHelpGeneratorTest2 {
   
   @Test
   public void testFormattedCodeWithNL() {
-    String _plus = ("document[Main]\n\nchapter[Dummy Title]\n\ncode[\n" + 
-      "class Foo {\n");
-    String _plus_1 = (_plus + 
-      "\tpublic \n");
-    final String input = (_plus_1 + 
+    final String input = ((("document[Main]\n\nchapter[Dummy Title]\n\ncode[\n" + 
+      "class Foo {\n") + 
+      "\tpublic \n") + 
       "]\n");
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<html>");
@@ -338,11 +335,9 @@ public class EclipseHelpGeneratorTest2 {
   
   @Test
   public void testFormattedCodeWithCRNL() {
-    String _plus = ("document[Main]\n\nchapter[Dummy Title]\n\ncode[\r\n" + 
-      "class Foo {\r\n");
-    String _plus_1 = (_plus + 
-      "\tpublic \r\n");
-    final String input = (_plus_1 + 
+    final String input = ((("document[Main]\n\nchapter[Dummy Title]\n\ncode[\r\n" + 
+      "class Foo {\r\n") + 
+      "\tpublic \r\n") + 
       "]\n");
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<html>");
@@ -398,8 +393,8 @@ public class EclipseHelpGeneratorTest2 {
   
   public void assertGeneratedHtml(final CharSequence input, final CharSequence expected) {
     try {
-      final IAcceptor<Result> _function = new IAcceptor<Result>() {
-        public void accept(final Result it) {
+      final IAcceptor<CompilationTestHelper.Result> _function = new IAcceptor<CompilationTestHelper.Result>() {
+        public void accept(final CompilationTestHelper.Result it) {
           String _string = expected.toString();
           String _removeCR = EclipseHelpGeneratorTest2.this._utils.removeCR(_string);
           Map<String,CharSequence> _allGeneratedResources = it.getAllGeneratedResources();
