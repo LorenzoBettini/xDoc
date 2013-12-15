@@ -117,9 +117,9 @@ public class StatefulEclipseHelpGenerator {
       EObject _head_1 = IterableExtensions.<EObject>head(_contents_1);
       AbstractSection _mainSection = null;
       EList<EObject> _contents_2 = res.getContents();
-      EObject _head_2 = IterableExtensions.<EObject>head(_contents_2);
-      if (((XdocFile) _head_2)!=null) {
-        _mainSection=((XdocFile) _head_2).getMainSection();
+      EObject _head_2 = IterableExtensions.<EObject>head(_contents_1);
+      if (((XdocFile) _head_1)!=null) {
+        _mainSection=((XdocFile) _head_1).getMainSection();
       }
       final AbstractSection doc = _mainSection;
       if ((doc instanceof Document)) {
@@ -152,8 +152,7 @@ public class StatefulEclipseHelpGenerator {
   
   public void copy(final String fromRelativeFileName, final Resource res) {
     try {
-      int _multiply = (16 * 1024);
-      final ByteBuffer buffer = ByteBuffer.allocateDirect(_multiply);
+      final ByteBuffer buffer = ByteBuffer.allocateDirect((16 * 1024));
       final URI uri = res.getURI();
       boolean _isPlatformResource = uri.isPlatformResource();
       if (_isPlatformResource) {
@@ -172,8 +171,7 @@ public class StatefulEclipseHelpGenerator {
         OutputStream _createOutputStream = _uRIConverter_1.createOutputStream(outPath);
         final WritableByteChannel outChannel = Channels.newChannel(_createOutputStream);
         int _read = inChannel.read(buffer);
-        int _minus = (-1);
-        boolean _notEquals = (_read != _minus);
+        boolean _notEquals = (_read != (-1));
         boolean _while = _notEquals;
         while (_while) {
           {
@@ -182,8 +180,7 @@ public class StatefulEclipseHelpGenerator {
             buffer.compact();
           }
           int _read_1 = inChannel.read(buffer);
-          int _minus_1 = (-1);
-          boolean _notEquals_1 = (_read_1 != _minus_1);
+          boolean _notEquals_1 = (_read_1 != (-1));
           _while = _notEquals_1;
         }
         buffer.flip();
@@ -289,15 +286,15 @@ public class StatefulEclipseHelpGenerator {
       for(final AbstractSection ss : _sections) {
         if (!_hasElements) {
           _hasElements = true;
-          _builder.append("<ol>", "	");
+          _builder.append("<ol>", "\t");
         }
         _builder.append("\t");
         CharSequence _generateEntryInRoot = this.generateEntryInRoot(ss);
-        _builder.append(_generateEntryInRoot, "	");
+        _builder.append(_generateEntryInRoot, "\t");
         _builder.newLineIfNotEmpty();
       }
       if (_hasElements) {
-        _builder.append("</ol>", "	");
+        _builder.append("</ol>", "\t");
       }
     }
     _builder.append("</li>");
@@ -462,42 +459,36 @@ public class StatefulEclipseHelpGenerator {
     boolean _matched = false;
     if (!_matched) {
       if (section instanceof Part) {
-        final Part _part = (Part)section;
         _matched=true;
         _switchResult = "h1";
       }
     }
     if (!_matched) {
       if (section instanceof Chapter) {
-        final Chapter _chapter = (Chapter)section;
         _matched=true;
         _switchResult = "h1";
       }
     }
     if (!_matched) {
       if (section instanceof Section) {
-        final Section _section = (Section)section;
         _matched=true;
         _switchResult = "h2";
       }
     }
     if (!_matched) {
       if (section instanceof Section2) {
-        final Section2 _section2 = (Section2)section;
         _matched=true;
         _switchResult = "h3";
       }
     }
     if (!_matched) {
       if (section instanceof Section3) {
-        final Section3 _section3 = (Section3)section;
         _matched=true;
         _switchResult = "h4";
       }
     }
     if (!_matched) {
       if (section instanceof Section4) {
-        final Section4 _section4 = (Section4)section;
         _matched=true;
         _switchResult = "h5";
       }
@@ -673,7 +664,7 @@ public class StatefulEclipseHelpGenerator {
       for(final Item i : _items) {
         _builder.append("\t");
         CharSequence _generate = this.generate(i);
-        _builder.append(_generate, "	");
+        _builder.append(_generate, "\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -691,7 +682,7 @@ public class StatefulEclipseHelpGenerator {
       for(final Item i : _items) {
         _builder.append("\t");
         CharSequence _generate = this.generate(i);
-        _builder.append(_generate, "	");
+        _builder.append(_generate, "\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -709,7 +700,7 @@ public class StatefulEclipseHelpGenerator {
       for(final TextOrMarkup tom : _contents) {
         _builder.append("\t");
         CharSequence _generate = this.generate(tom);
-        _builder.append(_generate, "	");
+        _builder.append(_generate, "\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -1064,7 +1055,7 @@ public class StatefulEclipseHelpGenerator {
     } else {
       CharSequence _xblockexpression = null;
       {
-        final Integer indentToRemove = this.utils.calcIndent(cb);
+        final int indentToRemove = this.utils.calcIndent(cb);
         Iterable<EObject> _xifexpression_1 = null;
         EList<EObject> _contents_1 = cb.getContents();
         int _size = _contents_1.size();
@@ -1081,75 +1072,65 @@ public class StatefulEclipseHelpGenerator {
           _xifexpression_1 = Collections.EMPTY_LIST;
         }
         final Iterable<EObject> list = _xifexpression_1;
-        String formattedCode = "";
         EList<EObject> _contents_4 = cb.getContents();
         EObject _head_1 = IterableExtensions.<EObject>head(_contents_4);
-        boolean _notEquals = (!Objects.equal(_head_1, null));
+        CharSequence _generateCode_1 = this.generateCode(_head_1);
+        String _trimLines = this.trimLines(_generateCode_1, indentToRemove);
+        final String first = _trimLines.replaceAll("\\A(\\s*\n)*", "");
+        String _xifexpression_2 = null;
+        EList<EObject> _contents_5 = cb.getContents();
+        EObject _last = IterableExtensions.<EObject>last(_contents_5);
+        EList<EObject> _contents_6 = cb.getContents();
+        EObject _head_2 = IterableExtensions.<EObject>head(_contents_6);
+        boolean _notEquals = (!Objects.equal(_last, _head_2));
         if (_notEquals) {
-          EList<EObject> _contents_5 = cb.getContents();
-          EObject _head_2 = IterableExtensions.<EObject>head(_contents_5);
-          CharSequence _generateCode_1 = this.generateCode(_head_2);
-          String _trimLines = this.trimLines(_generateCode_1, (indentToRemove).intValue());
-          final String first = _trimLines.replaceAll("\\A(\\s*\n)*", "");
-          String _xifexpression_2 = null;
-          EList<EObject> _contents_6 = cb.getContents();
-          EObject _last = IterableExtensions.<EObject>last(_contents_6);
           EList<EObject> _contents_7 = cb.getContents();
-          EObject _head_3 = IterableExtensions.<EObject>head(_contents_7);
-          boolean _notEquals_1 = (!Objects.equal(_last, _head_3));
-          if (_notEquals_1) {
-            EList<EObject> _contents_8 = cb.getContents();
-            EObject _last_1 = IterableExtensions.<EObject>last(_contents_8);
-            CharSequence _generateCode_2 = this.generateCode(_last_1);
-            String _trimLines_1 = this.trimLines(_generateCode_2, (indentToRemove).intValue());
-            String _replaceAll = _trimLines_1.replaceAll("(\\s*\n)*\\Z", "");
-            _xifexpression_2 = _replaceAll;
-          } else {
-            String _xblockexpression_1 = null;
-            {
-              first.replaceAll("(\\s*\n)*\\Z", "");
-              _xblockexpression_1 = ("");
-            }
-            _xifexpression_2 = _xblockexpression_1;
-          }
-          final String last = _xifexpression_2;
-          StringConcatenation _builder_1 = new StringConcatenation();
-          LangDef _language_1 = cb.getLanguage();
-          String _formatCode_1 = this.utils.formatCode(first, _language_1);
-          _builder_1.append(_formatCode_1, "");
-          _builder_1.newLineIfNotEmpty();
+          EObject _last_1 = IterableExtensions.<EObject>last(_contents_7);
+          CharSequence _generateCode_2 = this.generateCode(_last_1);
+          String _trimLines_1 = this.trimLines(_generateCode_2, indentToRemove);
+          String _replaceAll = _trimLines_1.replaceAll("(\\s*\n)*\\Z", "");
+          _xifexpression_2 = _replaceAll;
+        } else {
+          String _xblockexpression_1 = null;
           {
-            for(final EObject code : list) {
-              CharSequence _generateCode_3 = this.generateCode(code);
-              String _trimLines_2 = this.trimLines(_generateCode_3, (indentToRemove).intValue());
-              LangDef _language_2 = cb.getLanguage();
-              String _formatCode_2 = this.utils.formatCode(_trimLines_2, _language_2);
-              _builder_1.append(_formatCode_2, "");
-              _builder_1.newLineIfNotEmpty();
-            }
+            first.replaceAll("(\\s*\n)*\\Z", "");
+            _xblockexpression_1 = ("");
           }
-          LangDef _language_3 = cb.getLanguage();
-          String _formatCode_3 = this.utils.formatCode(last, _language_3);
-          _builder_1.append(_formatCode_3, "");
-          _builder_1.newLineIfNotEmpty();
-          formattedCode = _builder_1.toString();
+          _xifexpression_2 = _xblockexpression_1;
         }
-        StringConcatenation _builder_2 = new StringConcatenation();
-        _builder_2.append("<div class=\"literallayout\">");
-        _builder_2.newLine();
-        _builder_2.append("<div class=\"incode\">");
-        _builder_2.newLine();
-        _builder_2.append("<p class=\"code\">");
-        _builder_2.newLine();
-        _builder_2.append(formattedCode, "");
-        _builder_2.newLineIfNotEmpty();
-        _builder_2.append("</p>");
-        _builder_2.newLine();
-        _builder_2.append("</div>");
-        _builder_2.newLine();
-        _builder_2.append("</div>");
-        _builder_2.newLine();
-        _xblockexpression = (_builder_2);
+        final String last = _xifexpression_2;
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("<div class=\"literallayout\">");
+        _builder_1.newLine();
+        _builder_1.append("<div class=\"incode\">");
+        _builder_1.newLine();
+        _builder_1.append("<p class=\"code\">");
+        _builder_1.newLine();
+        LangDef _language_1 = cb.getLanguage();
+        String _formatCode_1 = this.utils.formatCode(first, _language_1);
+        _builder_1.append(_formatCode_1, "");
+        _builder_1.newLineIfNotEmpty();
+        {
+          for(final EObject code : list) {
+            CharSequence _generateCode_3 = this.generateCode(code);
+            String _trimLines_2 = this.trimLines(_generateCode_3, indentToRemove);
+            LangDef _language_2 = cb.getLanguage();
+            String _formatCode_2 = this.utils.formatCode(_trimLines_2, _language_2);
+            _builder_1.append(_formatCode_2, "");
+            _builder_1.newLineIfNotEmpty();
+          }
+        }
+        LangDef _language_3 = cb.getLanguage();
+        String _formatCode_3 = this.utils.formatCode(last, _language_3);
+        _builder_1.append(_formatCode_3, "");
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.append("</p>");
+        _builder_1.newLine();
+        _builder_1.append("</div>");
+        _builder_1.newLine();
+        _builder_1.append("</div>");
+        _builder_1.newLine();
+        _xblockexpression = (_builder_1);
       }
       _xifexpression = _xblockexpression;
     }
@@ -1158,9 +1139,7 @@ public class StatefulEclipseHelpGenerator {
   
   public String trimLines(final CharSequence cs, final int amount) {
     String _string = cs.toString();
-    String _plus = ("\n\\s{" + Integer.valueOf(amount));
-    String _plus_1 = (_plus + "}");
-    String _replaceAll = _string.replaceAll(_plus_1, "\n");
+    String _replaceAll = _string.replaceAll((("\n\\s{" + Integer.valueOf(amount)) + "}"), "\n");
     return _replaceAll;
   }
   

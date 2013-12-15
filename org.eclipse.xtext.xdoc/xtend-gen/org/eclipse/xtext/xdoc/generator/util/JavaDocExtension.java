@@ -38,14 +38,14 @@ public class JavaDocExtension {
         }
         if (_or) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.4/";
+          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.5/";
         }
       }
       if (!_matched) {
         boolean _startsWith_3 = name.startsWith("org.eclipse.xtend.");
         if (_startsWith_3) {
           _matched=true;
-          _switchResult = "http://download.eclipse.org/modeling/tmf/xtext/javadoc/2.4/";
+          _switchResult = "http://www.eclipse.org/xtend/api/2.5.0/";
         }
       }
       if (!_matched) {
@@ -125,9 +125,7 @@ public class JavaDocExtension {
       String _xifexpression = null;
       boolean _notEquals = (!Objects.equal(prefix, ""));
       if (_notEquals) {
-        String _plus = (prefix + file);
-        String _plus_1 = (_plus + ".html");
-        _xifexpression = _plus_1;
+        _xifexpression = ((prefix + file) + ".html");
       } else {
         _xifexpression = null;
       }
