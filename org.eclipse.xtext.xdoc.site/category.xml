@@ -11,4 +11,12 @@
          Xdoc is a domain specific language for documenting eclipse plugins. It is based on Xtext and is able to create eclipse help plugins as well as PDF files.
       </description>
    </category-def>
+   <feature id="org.eclipse.xtext.xdoc.source.feature" version="0.0.0">
+      <category name="xdoc.source.features"/>
+   </feature>
+   <category-def name="xdoc.source.features" label="Xdoc sources">
+      <description>
+         Xdoc is a domain specific language for documenting eclipse plugins. It is based on Xtext and is able to create eclipse help plugins as well as PDF files.
+      </description>
+   </category-def>
 </site>
