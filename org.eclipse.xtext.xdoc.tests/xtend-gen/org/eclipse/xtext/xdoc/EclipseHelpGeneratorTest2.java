@@ -397,7 +397,7 @@ public class EclipseHelpGeneratorTest2 {
         public void accept(final CompilationTestHelper.Result it) {
           String _string = expected.toString();
           String _removeCR = EclipseHelpGeneratorTest2.this._utils.removeCR(_string);
-          Map<String,CharSequence> _allGeneratedResources = it.getAllGeneratedResources();
+          Map<String, CharSequence> _allGeneratedResources = it.getAllGeneratedResources();
           CharSequence _get = _allGeneratedResources.get("DEFAULT_OUTPUTMyFile_1.html");
           String _removeCR_1 = EclipseHelpGeneratorTest2.this._utils.removeCR(_get);
           Assert.assertEquals(_removeCR, _removeCR_1);
