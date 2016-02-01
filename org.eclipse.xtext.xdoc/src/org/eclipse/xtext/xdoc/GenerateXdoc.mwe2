@@ -42,6 +42,7 @@ Workflow {
 		projectNameRt = projectName
 		projectNameUi = "${projectName}.ui"
 		language = {
+			loadedResource = "platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore"
 			loadedResource = "platform:/resource/org.eclipse.xtext.xdoc/model/Xdoc.ecore"
 			loadedResource = "platform:/resource/org.eclipse.xtext.xdoc/model/Images.ecore"
 			uri = grammarURI
