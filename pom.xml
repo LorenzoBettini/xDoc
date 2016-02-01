@@ -20,19 +20,24 @@
 	</modules>
 	<repositories>
 		<repository>
-			<id>xtext-und-co</id>
+			<id>xtext</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/</url>
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.8.4/</url>
+		</repository>
+		<repository>
+			<id>mwe</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.8.1/</url>
 		</repository>
 		<repository>
 			<id>antlrgenerator</id>
 			<layout>p2</layout>
-			<url>http://download.itemis.com/updates/nightly/site/</url>
+			<url>http://download.itemis.com/updates/releases/2.1.1/</url>
 		</repository>
 		<repository>
 			<id>eclipse</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/kepler/201309270900/</url>
+			<url>http://download.eclipse.org/releases/mars/</url>
 		</repository>
 	</repositories>
 	<profiles>
