@@ -15,8 +15,24 @@
 	<artifactId>org.eclipse.xtext.xdoc.tests</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.xtext.mongobeans</groupId>
+			<artifactId>org.xtext.mongobeans.lib</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/testfiles/org.xtext.mongobeans.lib_1.0.0.201501130438.jar</systemPath>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
