@@ -10,8 +10,11 @@ var projectName = "org.eclipse.xtext.xdoc"
 var runtimeProject = "../${projectName}"
 
 Workflow {
-    bean = StandaloneSetup {
+	bean = StandaloneSetup {
 		scanClassPath=true
+		
+		// register current projects and its siblings for platform URI map, as they are not on the classpath.
+		platformUri = "${runtimeProject}/.."
 	}
 
 	component = DirectoryCleaner {
