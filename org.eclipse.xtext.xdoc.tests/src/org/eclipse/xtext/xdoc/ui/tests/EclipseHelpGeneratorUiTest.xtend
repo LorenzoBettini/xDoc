@@ -1,10 +1,11 @@
-package org.eclipse.xtext.xdoc
+package org.eclipse.xtext.xdoc.ui.tests
 
 import java.io.File
 import javax.inject.Inject
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.xdoc.XdocUiInjectorProvider
 import org.eclipse.xtext.xdoc.generator.EclipseHelpGenerator
 import org.eclipse.xtext.xdoc.generator.StatefulEclipseHelpGenerator
 import org.eclipse.xtext.xdoc.util.ParseHelperExtensions
@@ -21,7 +22,7 @@ import static extension org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(XdocUiInjectorProvider))
-class EclipseHelpGeneratorTest {
+class EclipseHelpGeneratorUiTest {
 
 	@Inject extension ParseHelperExtensions<XdocFile>
 	@Inject extension EclipseHelpGenerator

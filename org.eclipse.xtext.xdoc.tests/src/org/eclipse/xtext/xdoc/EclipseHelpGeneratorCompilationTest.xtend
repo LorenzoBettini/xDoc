@@ -1,22 +1,39 @@
 package org.eclipse.xtext.xdoc
 
 import com.google.inject.Inject
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.xtext.common.types.TypesPackage
 import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.junit4.TemporaryFolder
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.xbase.compiler.CompilationTestHelper
+import org.eclipse.xtext.xdoc.generator.util.Utils
+import org.eclipse.xtext.xdoc.util.XdocInjectorProviderCustom
+import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import static extension org.junit.Assert.*
-import org.eclipse.xtext.xdoc.generator.util.Utils
 
 @RunWith(typeof(XtextRunner))
-@InjectWith(typeof(XdocInjectorProvider))
-class EclipseHelpGeneratorTest2 {
-	
+@InjectWith(typeof(XdocInjectorProviderCustom))
+class EclipseHelpGeneratorCompilationTest {
+
+	@Rule
+	@Inject public TemporaryFolder temporaryFolder
+
 	@Inject extension CompilationTestHelper
 	@Inject extension Utils
-	
+
+	@BeforeClass
+	def static void initializePackages() {
+		// if run inside a test suite the TypesPackage does not
+		// seem to be registered, and we'll get a NPE during Guice creation
+		val typesPack = TypesPackage.eINSTANCE
+		EPackage.Registry.INSTANCE.put(TypesPackage.eINSTANCE.getNsURI(), typesPack);
+	}
+
 	@Test
 	def public void testFormattedCode() {
 '''
@@ -237,7 +254,8 @@ class&nbsp;Foo&nbsp;{<br/>
 		input.compile[
 			expected.toString.removeCR.assertEquals(
 				getAllGeneratedResources.
-					get("DEFAULT_OUTPUTMyFile_1.html").removeCR)
+					entrySet.
+					findFirst[key.endsWith("MyFile_1.html")].value.removeCR)
 		]
 	}
 }

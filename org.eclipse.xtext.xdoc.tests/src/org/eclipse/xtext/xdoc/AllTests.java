@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	ParserTest.class,
 	UtilityTest.class,
-	EclipseHelpGeneratorTest2.class
+	EclipseHelpGeneratorCompilationTest.class,
+	EclipseHelpGeneratorCRLFTest.class
 })
 public class AllTests {
 
