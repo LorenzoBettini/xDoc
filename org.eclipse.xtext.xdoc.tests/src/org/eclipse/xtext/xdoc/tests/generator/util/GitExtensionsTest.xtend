@@ -3,7 +3,6 @@ package org.eclipse.xtext.xdoc.tests.generator.util
 import java.net.URL
 import org.eclipse.xtext.xdoc.generator.util.GitExtensions
 import org.junit.Test
-import org.xtext.mongobeans.lib.IMongoBean
 
 import static org.junit.Assert.*
 
@@ -28,7 +27,7 @@ class GitExtensionsTest {
 
 	@Test
 	def void testFindOriginalSourceFromJar() {
-		val gitURL = new GitExtensions().findOriginalSource(IMongoBean.name)
+		val gitURL = new GitExtensions().findOriginalSource("org.xtext.mongobeans.lib.IMongoBean")
 		assertNotNull(gitURL)
 		assertEquals("org/xtext/mongobeans/lib/IMongoBean.xtend", gitURL)
 	}
