@@ -26,7 +26,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0";visibility:=reexport,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional
 Import-Package: org.apache.commons.lang;version="2.1.0",
  org.apache.log4j;version="1.2.15"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.xtext.xdoc,
  org.eclipse.xtext.xdoc.formatting,
  org.eclipse.xtext.xdoc.generator,
