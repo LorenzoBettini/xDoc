@@ -1,4 +1,6 @@
-\documentclass[a4paper]{scrreprt}
+\documentclass[a4paper,10pt]{scrreprt}
+
+\typearea{12}
 
 \usepackage[T1]{fontenc}
 \usepackage{ae,aecompl,aeguill} 
@@ -17,9 +19,23 @@
     \raggedsection\normalfont\sectfont\nobreak\size@subsection
   }%
 }
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\sffamily\normalsize\bfseries}}
 \makeatother
 
-\lstset{tabsize=4, basicstyle=\sffamily\small, commentstyle=\textsl, keywordstyle=\bfseries, columns=[r]fullflexible, escapechar={ß}}
+\definecolor{listingsbg}{HTML}{E7E7E7}
+\definecolor{kwcolor}{HTML}{7F0055}
+\definecolor{strcolor}{HTML}{2A00FF}
+\definecolor{cocolor}{HTML}{3F7F5F}
+
+\lstset{tabsize=4, basicstyle=\sffamily\small, keywordstyle=\bfseries\color{kwcolor}, commentstyle=\color{cocolor},
+stringstyle=\color{strcolor}, columns=[r]fullflexible, escapechar={ß}, frame=single, %framexleftmargin=-5pt, framexrightmargin=-5pt, 
+xleftmargin=5pt, xrightmargin=5pt, rulecolor=\color{lightgray}, showstringspaces=false, backgroundcolor=\color{listingsbg!70}}
+
+\newlength{\XdocItemIndent}
+\newlength{\XdocTEffectiveWidth}
 
 \lstdefinelanguage{Java}
   {morekeywords={class, public, static, void},
@@ -32,7 +48,6 @@
 
 \usepackage{hyperref}
 
-\newlength{\itemindentlen}
 
 \title{Main}
 
@@ -50,6 +65,7 @@ class Foo {
 	}
 }
 \end{lstlisting}
+
 
 \listoftodos
 \end{document}

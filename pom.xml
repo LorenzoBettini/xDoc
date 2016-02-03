@@ -10,6 +10,7 @@
 	<properties>
 		<tycho.version>0.21.0</tycho.version>
 		<xtext.version>2.8.4</xtext.version>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<modules>
 		<module>org.eclipse.xtext.xdoc</module>

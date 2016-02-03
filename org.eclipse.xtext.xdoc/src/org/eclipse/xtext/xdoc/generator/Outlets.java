@@ -7,5 +7,7 @@ public interface Outlets {
 	String WEB_SITE_PATH_NAME = "website";
 
 	String ECLIPSE_HELP = IFileSystemAccess.DEFAULT_OUTPUT;
+	String LATEX = "latex";
+
 	//String ECLIPSE_HELP_PATH_NAME = "contents";
 }

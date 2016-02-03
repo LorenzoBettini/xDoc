@@ -1,4 +1,4 @@
-package org.eclipse.xtext.xdoc
+package org.eclipse.xtext.xdoc.tests
 
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EPackage

@@ -1,9 +1,9 @@
 package org.eclipse.xtext.xdoc.tests;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
+import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
@@ -23,6 +23,7 @@ import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.xdoc.XdocInjectorProvider;
+import org.eclipse.xtext.xdoc.util.ParserTestUtil;
 import org.eclipse.xtext.xdoc.xdoc.AbstractSection;
 import org.eclipse.xtext.xdoc.xdoc.Chapter;
 import org.eclipse.xtext.xdoc.xdoc.Document;
@@ -43,7 +44,7 @@ public abstract class AbstractXdocGeneratorTest extends org.eclipse.xtext.junit4
 	public static String EXPECTATION_DIR = "expectations/";
 	public static String SRC_DIR = "testfiles/";
 	@Inject
-	protected ParserTest pTest;
+	protected ParserTestUtil pTest;
 	private XpandExecutionContextImpl xpandCtx;
 
 	public AbstractXdocGeneratorTest() {
@@ -79,31 +80,29 @@ public abstract class AbstractXdocGeneratorTest extends org.eclipse.xtext.junit4
 	abstract protected void generate(EObject eObject);
 
 	protected void validate(String expected, String result) throws Exception {
-		FileInputStream fileInputStream = new FileInputStream(expected);
-		FileInputStream fileInputStream2 = new FileInputStream(result);
+		String expectedContents = readFileAsString(expected);
+		String actualContents = readFileAsString(result);
+		assertEquals(expectedContents, actualContents);
+	}
+
+	protected static String readFileAsString(String file) throws IOException {
+		return readFileAsString(new File(file));
+	}
+
+	protected static String readFileAsString(File file) throws IOException {
+		byte[] buffer = new byte[(int) file.length()];
+		BufferedInputStream f = null;
 		try {
-			FileChannel expF = fileInputStream.getChannel();
-			FileChannel resultF = fileInputStream2.getChannel();
-			ByteBuffer bExp = ByteBuffer.allocateDirect((int) expF.size());
-			ByteBuffer bResult = ByteBuffer.allocateDirect((int) resultF.size());
-			assertEquals(bExp.capacity(), bResult.capacity());
-			expF.read(bExp);
-			bExp.rewind();
-			resultF.read(bResult);
-			bResult.rewind();
-			if (bExp.compareTo(bResult) != 0) {
-				while (bExp.hasRemaining() || bResult.hasRemaining()) {
-					char a = (char) bExp.get();
-					char b = (char) bResult.get();
-					if (a != b) {
-						fail("Expected " + a + " but was " + b + " at position " + bExp.position());
-					}
-				}
-			}
+			f = new BufferedInputStream(new FileInputStream(file));
+			f.read(buffer);
 		} finally {
-			fileInputStream.close();
-			fileInputStream2.close();
+			if (f != null)
+				try {
+					f.close();
+				} catch (IOException ignored) {
+				}
 		}
+		return new String(buffer).replaceAll("\\r", "");
 	}
 
 	protected XpandExecutionContext getXpandCtx() {
@@ -131,6 +130,17 @@ public abstract class AbstractXdocGeneratorTest extends org.eclipse.xtext.junit4
 			return doc;
 		}
 		return null;
+	}
+
+	protected XdocFile initMissingDocFromFile(String string, String filename) throws Exception {
+		XdocFile file = pTest.getDocFromFile(SRC_DIR + filename);
+		AbstractSection mainSection = file.getMainSection();
+		if (mainSection instanceof Chapter) {
+			Document doc = initDoc(string);
+			doc.getChapters().add((Chapter) mainSection);
+			file.setMainSection(doc);
+		}
+		return file;
 	}
 
 	protected Document initDoc(String name) {

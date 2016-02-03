@@ -1,10 +1,11 @@
-package org.eclipse.xtext.xdoc
+package org.eclipse.xtext.xdoc.tests
 
 import java.net.URL
 import javax.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.xdoc.XdocInjectorProvider
 import org.eclipse.xtext.xdoc.util.ParseHelperExtensions
 import org.eclipse.xtext.xdoc.xdoc.Chapter
 import org.eclipse.xtext.xdoc.xdoc.Code

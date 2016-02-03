@@ -1,4 +1,4 @@
-package org.eclipse.xtext.xdoc
+package org.eclipse.xtext.xdoc.tests
 
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner

@@ -29,7 +29,7 @@
 				<configuration>
 					<useUIHarness>false</useUIHarness>
 					<testFailureIgnore>true</testFailureIgnore>
-					<argLine>${os-jvm-flags}</argLine>
+					<argLine>${os-jvm-flags} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
 					<dependencies>
 						<dependency>
 							<groupId>org.xtext.mongobeans</groupId>

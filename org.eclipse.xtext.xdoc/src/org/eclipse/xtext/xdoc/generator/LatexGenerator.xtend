@@ -476,17 +476,15 @@ class LatexGenerator implements IConfigurableGenerator {
 
 	def String copy(ImageRef imgRef) {
 		try{
-			val res = imgRef.eResource
-			val buffer = ByteBuffer::allocateDirect(16 * 1024);
-			val uri = res.URI
-			val uriConverter = res.resourceSet.URIConverter
-			val absoluteLocalPath = URI::createFileURI(new File("").absolutePath+"/")
-			val relativeImageURI = URI::createFileURI(imgRef.path)
-			val inPath = relativeImageURI.resolve(uri).deresolve(absoluteLocalPath)
+			val buffer = ByteBuffer.allocate(16*1024);
+			val res = imgRef.eResource();
+			val uri = imgRef.eResource().getURI();
+			val fromRelativeFileName = imgRef.path.unescapeXdocChars
+			val inPath = URI::createURI(uri.trimSegments(1).toString + "/" + fromRelativeFileName)
 			val inSegments = inPath.segmentsList.subList(1, inPath.segmentCount)
 			val pathInDocument = inSegments.join("/")
-			val outPath = URI::createFileURI(config.get(Config::outletPath).toString + "/" + pathInDocument)
-			val inChannel = Channels::newChannel(uriConverter.createInputStream(inPath))
+			val outPath = URI::createURI(Outlets::LATEX + "/" + fromRelativeFileName.replaceAll("\\.\\.",""))
+			val inChannel = Channels::newChannel(res.resourceSet.URIConverter.createInputStream(inPath))
 			val outChannel = Channels::newChannel(res.resourceSet.URIConverter.createOutputStream(outPath))
 			while (inChannel.read(buffer) != -1) {
 				buffer.flip();
@@ -498,6 +496,7 @@ class LatexGenerator implements IConfigurableGenerator {
 				outChannel.write(buffer);
 			}
 			outChannel.close()
+
 			return pathInDocument
 		} catch (Exception e) {
 			throw new RuntimeException(e)

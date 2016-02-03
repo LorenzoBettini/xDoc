@@ -27,6 +27,7 @@ public class LexerTest extends AbstractXtextTests {
 	public void testMULTI_NL() throws Exception {
 		checkTokens(Tuples.create("RULE_MULTI_NL","\n\n"));
 	}
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testMULTI_NL_1() throws Exception {
@@ -41,6 +42,7 @@ public class LexerTest extends AbstractXtextTests {
 //				Tuples.create("RULE_WS"," "));
 //	}
 
+	@SuppressWarnings("unchecked")
 	protected void checkTokens(Pair<String, String>... tokens) {
 		StringBuilder builder = new StringBuilder();
 		for (Pair<String, String> token : tokens) {

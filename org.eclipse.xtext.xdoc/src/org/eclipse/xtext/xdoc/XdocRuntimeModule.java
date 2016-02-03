@@ -16,7 +16,6 @@ import org.eclipse.xtext.xdoc.resource.XdocResourceDescriptionStrategy;
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
-@SuppressWarnings("restriction")
 public class XdocRuntimeModule extends org.eclipse.xtext.xdoc.AbstractXdocRuntimeModule {
 
 	@Override

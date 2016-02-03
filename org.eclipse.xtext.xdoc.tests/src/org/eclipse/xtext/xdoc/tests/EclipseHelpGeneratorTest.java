@@ -1,6 +1,8 @@
 package org.eclipse.xtext.xdoc.tests;
 
 
+import static org.eclipse.xtext.xdoc.util.ParserTestConstants.TEST_FILE_DIR;
+
 import java.io.File;
 
 import org.eclipse.emf.common.util.URI;
@@ -26,7 +28,7 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 	
 	@Override
 	public void testGenCodeWithLanguage() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "codeWithLanguageTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "codeWithLanguageTest.xdoc");
 		Document doc = (Document) file.getMainSection();
 		generate(doc);
 		validate(EXPECTATION_DIR + "codeWithLanguage.html", RESULT_DIR + "mytestmodel.xdoc-0.html");
@@ -34,7 +36,7 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 
 	@Override
 	public void testGenCode() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "codeTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "codeTest.xdoc");
 		Document doc = (Document) file.getMainSection();
 		generate(doc);
 		validate(EXPECTATION_DIR + "codeTest_1.html", RESULT_DIR + "codeTest_1.html");
@@ -42,28 +44,28 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 
 	@Override
 	public void testARef() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "aRefTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "aRefTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "aRefExp.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testCodeRef() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "codeRef.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "codeRef.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "codeRef.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testComment() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "commentTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "commentTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "commentTest.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testImg() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "imgTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "imgTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "imgTest.html", RESULT_FILE);
 		validate(EXPECTATION_DIR + "test.png", RESULT_DIR + "test.png");
@@ -71,45 +73,45 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 
 	@Override
 	public void testLink() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "linkTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "linkTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "linkTest.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testRefText() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "namedRefAndTextTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "namedRefAndTextTest.xdoc");
 		generate(file.getMainSection());
-		validate(EXPECTATION_DIR + "namedRefTextTest.html", RESULT_FILE);
+		validate(EXPECTATION_DIR + "namedRefTextTest.html", RESULT_DIR + "namedRefAndTextTest.html");
 	}
 
 	@Override
 	public void testNestedList() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "nestedListTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "nestedListTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "nestedListTest.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testSimpleRef() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "simpleRefTest.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "simpleRefTest.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "simpleRefTest.html", RESULT_FILE);
 	}
 
 	@Override
 	public void testTable() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "table.xdoc");
-		generate(file.getMainSection());
-		validate(EXPECTATION_DIR + "table.html", RESULT_FILE);
+		XdocFile file = initMissingDocFromFile("table", "table.xdoc");
+		generate(file);
+		validate(EXPECTATION_DIR + "table.html", RESULT_DIR + "table.html");
 	}
 
 	@Override
 	public void testTwoChapters() throws Exception {
 		XtextResourceSet set = get(XtextResourceSet.class);
-		set.getResource(URI.createURI(ParserTest.TEST_FILE_DIR + "01-twoChapters.xdoc"), true);
-		set.getResource(URI.createURI(ParserTest.TEST_FILE_DIR + "02-twoChapters.xdoc"), true);
-		XdocFile file = (XdocFile) getModel((XtextResource)set.getResource(URI.createURI(ParserTest.TEST_FILE_DIR + "twoChaptersDoc.xdoc"), true));
+		set.getResource(URI.createURI(TEST_FILE_DIR + "01-twoChapters.xdoc"), true);
+		set.getResource(URI.createURI(TEST_FILE_DIR + "02-twoChapters.xdoc"), true);
+		XdocFile file = (XdocFile) getModel((XtextResource)set.getResource(URI.createURI(TEST_FILE_DIR + "twoChaptersDoc.xdoc"), true));
 		Document doc = (Document) file.getMainSection();
 		for(int i = 0; i < doc.getChapters().size(); i++) {
 			Chapter chapter = doc.getChapters().get(i);
@@ -122,13 +124,13 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 	}
 
 	public void testTwoChaptersDirect() throws Exception {
-		Document doc = (Document) pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "twoChapters.xdoc").getMainSection();
+		Document doc = (Document) pTest.getDocFromFile(TEST_FILE_DIR + "twoChapters.xdoc").getMainSection();
 		generate(doc);
 	}
 
 	@Override
 	public void testFullHirarchy () throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "downToSection4Test.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "downToSection4Test.xdoc");
 		// gen toc.xml
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "fullHirarchyTOC.xml", RESULT_DIR + "toc.xml");
@@ -137,26 +139,16 @@ public class EclipseHelpGeneratorTest extends AbstractXdocGeneratorTest {
 
 	@Override
 	public void testEscape() throws Exception {
-		XdocFile file = pTest.getDocFromFile(ParserTest.TEST_FILE_DIR + "testEscape.xdoc");
+		XdocFile file = pTest.getDocFromFile(TEST_FILE_DIR + "testEscape.xdoc");
 		generate(file.getMainSection());
 		validate(EXPECTATION_DIR + "escapeTest.html", RESULT_FILE);
-	}
-
-	@Override
-	protected void generate(EObject eObject)  {
-		if(eObject instanceof Document) {
-			try {
-				generate((Document) eObject);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	@Inject
 	private EclipseHelpGenerator generator;
 
-	protected void generate(Document obj) throws Exception {
+	@Override
+	protected void generate(EObject obj) {
 		AbstractFileSystemAccess fsa = javaFSAccessProvider.get();
 		fsa.setOutputPath(System.getProperty("user.dir") + File.separatorChar+"test-gen"+ File.separatorChar);
 		generator.doGenerate(obj.eResource(), fsa);
