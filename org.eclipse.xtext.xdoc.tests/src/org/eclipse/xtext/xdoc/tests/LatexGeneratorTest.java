@@ -65,7 +65,7 @@ public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
 	public void testCodeRef() throws Exception {
 		Document doc = initDocFromFile("codeRef", "codeRef.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "codeRef.tex", MAIN_TEX_RESULT);
+		validate(EXPECTATION_DIR + "codeRef.tex", RESULT_DIR + "codeRef.tex");
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
 	public void testTable() throws Exception {
 		Document doc = initDocFromFile("table", "table.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "table.tex", MAIN_TEX_RESULT);
+		validate(EXPECTATION_DIR + "table.tex", RESULT_DIR + "table.tex");
 	}
 
 	@Override
