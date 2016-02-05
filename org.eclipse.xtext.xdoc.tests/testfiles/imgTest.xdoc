@@ -2,4 +2,4 @@ document[imgTest]
 
 chapter[Dummy title]
 
-img[test.png][MyCaption bla mit \]][ImageClass][]
+img:anchor[test.png][MyCaption bla mit \]][ImageClass][]

@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 
 @InjectWith(XdocInjectorProvider.class)
 public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
+	private static final String MAIN_TEX_RESULT = RESULT_DIR + "Main.tex";
 	@Inject
 	JavaIoFileSystemAccess fsa;
 	@Inject
@@ -43,14 +44,14 @@ public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
 	public void testGenCode() throws Exception {
 		Document doc = initDocFromFile("code", "codeTest.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "codeTest.tex", RESULT_DIR + "Main.tex");
+		validate(EXPECTATION_DIR + "codeTest.tex", MAIN_TEX_RESULT);
 	}
 
 	@Override
 	public void testGenCodeWithLanguage() throws Exception {
 		Document doc = initDocFromFile("codeWithLanguage", "codeWithLanguageTest.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "codeWithLanguage.tex", RESULT_DIR + "Main.tex");
+		validate(EXPECTATION_DIR + "codeWithLanguage.tex", MAIN_TEX_RESULT);
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
 	public void testCodeRef() throws Exception {
 		Document doc = initDocFromFile("codeRef", "codeRef.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "codeRef.tex", RESULT_DIR + "codeRef.tex");
+		validate(EXPECTATION_DIR + "codeRef.tex", MAIN_TEX_RESULT);
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class LatexGeneratorTest extends AbstractXdocGeneratorTest {
 	public void testTable() throws Exception {
 		Document doc = initDocFromFile("table", "table.xdoc");
 		generate(doc);
-		validate(EXPECTATION_DIR + "table.tex", RESULT_DIR + "table.tex");
+		validate(EXPECTATION_DIR + "table.tex", MAIN_TEX_RESULT);
 	}
 
 	@Override

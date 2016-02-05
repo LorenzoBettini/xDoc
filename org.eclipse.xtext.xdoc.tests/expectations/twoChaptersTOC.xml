@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<toc topic="contents/01-twoChapters.xdoc.html" label="Foo Title" >
-	<topic href="contents/01-twoChapters.xdoc.html#id" label="Dummy Title" >
+<toc topic="contents/twoChaptersDoc.html" label="Foo Title" >
+	<topic href="contents/testfiles/01-twoChapters.xdoc/contents/01-twoChapters.html#id" label="Dummy Title" >
 	</topic>
-	<topic href="contents/02-twoChapters.xdoc.html#bar" label="Dummy Title" >
+	<topic href="contents/testfiles/02-twoChapters.xdoc/contents/02-twoChapters.html#bar" label="Dummy Title" >
 	</topic>
 </toc>

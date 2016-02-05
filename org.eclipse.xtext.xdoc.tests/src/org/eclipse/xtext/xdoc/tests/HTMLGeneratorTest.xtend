@@ -28,7 +28,8 @@ import org.eclipse.xtext.xdoc.xdoc.XdocFile
 import org.junit.Test
 import com.google.inject.Inject
 
-@InjectWith(XdocInjectorProvider) class HTMLGeneratorTest extends AbstractXdocGeneratorTest {
+@InjectWith(XdocInjectorProvider)
+class HTMLGeneratorTest extends AbstractXdocGeneratorTest {
 	public static String HTML_SRC = '''html«File.separator»'''
 	@Inject HtmlGenerator generator
 	@Inject HTMLNamingExtensions naming
