@@ -118,6 +118,7 @@ class GitExtensions {
 						return traceRegion.associatedPath.toString
 					}
 				} catch (IOException e) {
+					e.printStackTrace
 				}
 				return qualifiedName.replace('.', '/') + '.java'
 			}

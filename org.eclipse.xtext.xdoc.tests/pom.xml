@@ -16,6 +16,15 @@
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -23,23 +32,43 @@
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.16</version>
+				<executions>
+					<execution>
+						<id>JUnitTests</id>
+						<phase>test</phase>
+						<configuration>
+							<!--  This must be run as a plain JUnit test, i.e., no Equinox OSGI,
+								otherwise the Xtend files in the JAR used in the test are not found  -->
+							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
+							<includes>
+								<include>**/GitExtension*Test*.java</include>
+							</includes>
+							<additionalClasspathElements>
+								<additionalClasspathElement>${basedir}/testfiles/org.xtext.mongobeans.lib_1.0.0.201501130438.jar</additionalClasspathElement>
+							</additionalClasspathElements>
+						</configuration>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
 					<useUIHarness>false</useUIHarness>
-					<testFailureIgnore>true</testFailureIgnore>
+					<!-- <testFailureIgnore>true</testFailureIgnore>  -->
 					<argLine>${os-jvm-flags} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
-					<dependencies>
-						<dependency>
-							<groupId>org.xtext.mongobeans</groupId>
-							<artifactId>org.xtext.mongobeans.lib</artifactId>
-							<version>1.0</version>
-							<scope>system</scope>
-							<systemPath>${basedir}/testfiles/org.xtext.mongobeans.lib_1.0.0.201501130438.jar</systemPath>
-							<optional>true</optional>
-						</dependency>
-					</dependencies>
+					<!--  This must be run as a plain JUnit test, i.e., no Equinox OSGI, (see above)
+						otherwise the Xtend files in the JAR used in the test are not found  -->
+					<excludes>
+						<exclude>**/GitExtension*Test*.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
