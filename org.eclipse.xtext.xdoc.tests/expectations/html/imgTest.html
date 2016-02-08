@@ -6,16 +6,27 @@
 		<ul id="leftnav">
 		<li class="separator"><div class="separator">
 		<img src="triangle.gif" style="height:12px; margin-right: 2px; display:none"  /><img src="triangle-90.gif" style="display:none; margin-right: 2px" height="12px" />
-		<a href="aRefTest_1.php">Dummy Title</a></div>
+		<a href="imgTest_1.php">Dummy title</a></div>
 		</li>
 		</ul>
 	</div>
 	<div id="midcolumn">
-		<a name="Main_1" ></a>
-		<h1>Dummy Title</h1>
+		<a name="imgTest_1" ></a>
+		<h1>Dummy title</h1>
 				
 		<p>
-		 Jump <a href="aRefTest.php#refName.php" >to</a>
+		<div class="image" >
+		<a>anchor</a>
+		<a class="gallery" rel="prettyPhoto[all]" title="MyCaption bla mit ]" href="test.png">
+			<img src="test.png" 
+				class="ImageClass" 
+			/>
+		</a>
+		<div class="caption">
+			MyCaption bla mit ]
+		</div>
+		</div>
+		
 		</p>
 		<div id="disqus_thread"></div>
 		<script type="text/javascript" src="documentationRoot.js"></script>
@@ -24,8 +35,8 @@
 		    var disqus_shortname = 'xtext'; // required: replace example with your forum shortname
 		
 		    // The following are highly recommended additional parameters. Remove the slashes in front to use.
-		    var disqus_identifier = 'Main_1';
-		    var disqus_url = documentationRoot+'aRefTest.php';
+		    var disqus_identifier = 'imgTest_1';
+		    var disqus_url = documentationRoot+'imgTest.php';
 		
 		    /* * * DON'T EDIT BELOW THIS LINE * * */
 		    (function() {

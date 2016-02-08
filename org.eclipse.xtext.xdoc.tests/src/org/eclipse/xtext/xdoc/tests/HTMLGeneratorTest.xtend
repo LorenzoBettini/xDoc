@@ -30,6 +30,8 @@ import com.google.inject.Inject
 
 @InjectWith(XdocInjectorProvider)
 class HTMLGeneratorTest extends AbstractXdocGeneratorTest {
+	private static final String CUSTOM_TEST_FILE_DIR = TEST_FILE_DIR + "eclipsehelp/";
+
 	public static String HTML_SRC = '''html«File.separator»'''
 	@Inject HtmlGenerator generator
 	@Inject HTMLNamingExtensions naming
@@ -37,9 +39,7 @@ class HTMLGeneratorTest extends AbstractXdocGeneratorTest {
 	@Inject package JavaIoFileSystemAccess fsa
 
 	def protected void generate(Document obj) throws Exception {
-		fsa.setOutputPath(Outlets.WEB_SITE, Outlets.WEB_SITE_PATH_NAME)
-		fsa.
-			setOutputPath('''«System.getProperty("user.dir")»«File.separatorChar»test-gen«File.separatorChar»html«File.separatorChar»''')
+		fsa.setOutputPath(Outlets.WEB_SITE, '''«System.getProperty("user.dir")»«File.separatorChar»test-gen«File.separatorChar»html«File.separatorChar»''')
 		generator.generate(obj, fsa)
 	}
 
@@ -48,15 +48,15 @@ class HTMLGeneratorTest extends AbstractXdocGeneratorTest {
 		var Document doc = createDocumentFrom('''«HTML_SRC»«resName».xdoc''')
 		generate(doc)
 		assertGenerated(doc)
-		for (AbstractSection ^as : doc.getChapters()) {
-			generate(^as)
-			assertGenerated(^as)
-			for (AbstractSection next : utils.sections(^as)) {
-				generate(next)
-				assertGenerated(next)
-			}
-
-		}
+//		for (AbstractSection ^as : doc.getChapters()) {
+//			generate(^as)
+//			assertGenerated(^as)
+//			for (AbstractSection next : utils.sections(^as)) {
+//				generate(next)
+//				assertGenerated(next)
+//			}
+//
+//		}
 
 	}
 
@@ -127,7 +127,7 @@ more test
 		var Document document = createDocumentFrom("codeWithLanguageTest.xdoc")
 		generate(document)
 		assertGenerated(document)
-		generate(document.getChapters().get(0))
+//		generate(document.getChapters().get(0))
 		assertGenerated(document.getChapters().get(0))
 		validate("codeWithLanguageTest.html", name(document.getChapters().get(0)))
 	}
@@ -136,7 +136,7 @@ more test
 		var Document document = createDocumentFrom("codeTest.xdoc")
 		generate(document)
 		assertGenerated(document)
-		generate(document.getChapters().get(0))
+//		generate(document.getChapters().get(0))
 		assertGenerated(document.getChapters().get(0))
 		validate("codeTest.html", name(document.getChapters().get(0)))
 	}
@@ -146,56 +146,56 @@ more test
 	}
 
 	override void testARef() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»aRefTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»aRefTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("aRefTest.html", name(file.getMainSection()))
 	}
 
 	override void testCodeRef() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»codeRef.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»codeRef.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("codeRefTest.html", name(file.getMainSection()))
 	}
 
 	override void testComment() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»commentTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»commentTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("commentTest.html", name(file.getMainSection()))
 	}
 
 	override void testLink() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»linkTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»linkTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("linkTest.html", name(file.getMainSection()))
 	}
 
 	override void testRefText() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»namedRefAndTextTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»namedRefAndTextTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("namedRefAndTextTest.html", name(file.getMainSection()))
 	}
 
 	override void testNestedList() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»nestedListTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»nestedListTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("nestedListTest.html", name(file.getMainSection()))
 	}
 
 	override void testSimpleRef() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»simpleRefTest.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»simpleRefTest.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("simpleRefTest.html", name(file.getMainSection()))
 	}
 
 	override void testTable() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»table.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»table.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("table.html", name(file.getMainSection()))
@@ -211,22 +211,25 @@ more test
 			set.getResource(URI.createURI('''«TEST_FILE_DIR»twoChaptersDoc.xdoc'''), true) as XtextResource) as XdocFile
 		var Document doc = file.getMainSection() as Document
 
-		for (var int i = 0; i < doc.getChapters().size(); i++) {
-			var Chapter chapter = doc.getChapters().get(i)
-			generate(chapter)
-		}
+//		for (var int i = 0; i < doc.getChapters().size(); i++) {
+//			var Chapter chapter = doc.getChapters().get(i)
+//			generate(chapter)
+//		}
 		generate(doc)
 		validate("01-twoChapters.html", name(chapter0))
 		validate("02-twoChapters.html", name(chapter1))
-		validate("twoChaptersDoc.html", name(doc))
+		validate("twoChaptersDoc.html", "_index.html")
 	}
 
 	override void testImg() throws Exception {
-		assertTrue("Implement", false)
+		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»imgTest.xdoc''')
+		generate(file.getMainSection())
+		assertGenerated(file.getMainSection())
+		validate("imgTest.html", name(file.getMainSection()))
 	}
 
 	override void testEscape() throws Exception {
-		var XdocFile file = pTest.getDocFromFile('''«TEST_FILE_DIR»testEscape.xdoc''')
+		var XdocFile file = pTest.getDocFromFile('''«CUSTOM_TEST_FILE_DIR»testEscape.xdoc''')
 		generate(file.getMainSection())
 		assertGenerated(file.getMainSection())
 		validate("testEscape.html", name(file.getMainSection()))
@@ -241,7 +244,7 @@ more test
 	}
 
 	override protected void generate(EObject eObject) {
-		// TODO Auto-generated method stub
+		generate(eObject as Document)
 	}
 
 	override void testFullHirarchy() throws Exception {

@@ -3,6 +3,7 @@ package org.eclipse.xtext.xdoc;
 import org.eclipse.xtext.xdoc.tests.EclipseHelpGeneratorCRLFTest;
 import org.eclipse.xtext.xdoc.tests.EclipseHelpGeneratorCompilationTest;
 import org.eclipse.xtext.xdoc.tests.EclipseHelpGeneratorTest;
+import org.eclipse.xtext.xdoc.tests.HTMLGeneratorTest;
 import org.eclipse.xtext.xdoc.tests.LatexGeneratorTest;
 import org.eclipse.xtext.xdoc.tests.LexerTest;
 import org.eclipse.xtext.xdoc.tests.ParserTest;
@@ -18,7 +19,8 @@ import org.junit.runners.Suite;
 	EclipseHelpGeneratorCompilationTest.class,
 	EclipseHelpGeneratorCRLFTest.class,
 	LatexGeneratorTest.class,
-	EclipseHelpGeneratorTest.class
+	EclipseHelpGeneratorTest.class,
+	HTMLGeneratorTest.class
 })
 public class AllTests {
 

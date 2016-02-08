@@ -83,13 +83,21 @@ class HtmlGenerator implements IGenerator {
 		)
 		if(!doc.chapters.empty)
 			for(chapter : doc.chapters) {
-				chapter.generate(fsa, leftNav, (chapter as Chapter).elementIdForSubToc)
+				chapter.generateChapter(fsa, leftNav, (chapter as Chapter).elementIdForSubToc)
 			}
 		else
 			for(part: doc.parts)
 				for(chapter : part.chapters) {
-					chapter.generate(fsa, leftNav, (chapter as Chapter).elementIdForSubToc)
+					chapter.generateChapter(fsa, leftNav, (chapter as Chapter).elementIdForSubToc)
 				}
+	}
+
+	def dispatch void generateChapter(Chapter chapter, IFileSystemAccess fsa, CharSequence leftNav, CharSequence leftNavUnfoldSubTocId) {
+		chapter.generateFile(fsa, leftNav, chapter.fullURL)
+	}
+
+	def dispatch void generateChapter(ChapterRef chapter, IFileSystemAccess fsa, CharSequence leftNav, CharSequence leftNavUnfoldSubTocId) {
+		generate(chapter, fsa, leftNav, leftNavUnfoldSubTocId)
 	}
 
 	def CharSequence genPrevButton(AbstractSection section) '''
