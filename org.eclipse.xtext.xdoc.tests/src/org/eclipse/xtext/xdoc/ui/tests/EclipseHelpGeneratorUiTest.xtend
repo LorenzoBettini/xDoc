@@ -44,7 +44,7 @@ class EclipseHelpGeneratorUiTest {
 	}
 
 	def getDoc(String fileName) {
-		(TEST_FILE_DIR + fileName).docFromFile
+		(TEST_FILE_DIR + "eclipsehelp/" + fileName).docFromFile
 	}
 
 	def getTargetFile(String fileName) {
