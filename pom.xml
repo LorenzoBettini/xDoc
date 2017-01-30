@@ -25,30 +25,47 @@
 
 	<profiles>
 		<profile>
-			<id>sign</id>
-			<!-- To sign plug-ins and features, run: mvn -Psign -Dkeystore=<path> 
-				-Dstorepass=*** -Dalias=<keyalias> clean install -->
+			<id>release-composite</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
 			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-jar-plugin</artifactId>
-							<version>2.3.1</version>
-							<executions>
-								<execution>
-									<goals>
-										<goal>sign</goal>
-									</goals>
-								</execution>
-							</executions>
-							<configuration>
-								<verify>true</verify>
-								<jarPath>${project.build.directory}/${project.build.finalName}.jar</jarPath>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-pack200b-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>pack200-pack</id>
+								<goals>
+									<goal>pack</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<executions>
+							<execution>
+								<id>p2-metadata</id>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<defaultP2Metadata>false</defaultP2Metadata>
+						</configuration>
+					</plugin>
+				</plugins>
 			</build>
 		</profile>
 	</profiles>
@@ -99,6 +116,7 @@
 							<arch>x86_64</arch>
 						</environment>
 					</environments>
+					<includePackedArtifacts>true</includePackedArtifacts>
 				</configuration>
 			</plugin>
 			<plugin>
