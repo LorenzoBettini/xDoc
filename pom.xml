@@ -8,7 +8,8 @@
 	<packaging>pom</packaging>
 	<name>Xdoc</name>
 	<properties>
-		<tycho.version>0.21.0</tycho.version>
+		<tycho.version>0.25.0</tycho.version>
+		<tycho-version>${tycho.version}</tycho-version>
 		<xtext.version>2.8.4</xtext.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
@@ -17,31 +18,11 @@
 		<module>org.eclipse.xtext.xdoc.generator</module>
 		<module>org.eclipse.xtext.xdoc.tests</module>
 		<module>org.eclipse.xtext.xdoc.ui</module>
+		<module>org.eclipse.xtext.xdoc.target</module>
 		<module>org.eclipse.xtext.xdoc.feature</module>
 		<module>org.eclipse.xtext.xdoc.releng</module>
 	</modules>
-	<repositories>
-		<repository>
-			<id>xtext</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.8.4/</url>
-		</repository>
-		<repository>
-			<id>mwe</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.8.1/</url>
-		</repository>
-		<repository>
-			<id>antlrgenerator</id>
-			<layout>p2</layout>
-			<url>http://download.itemis.com/updates/releases/2.1.1/</url>
-		</repository>
-		<repository>
-			<id>eclipse</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/mars/</url>
-		</repository>
-	</repositories>
+
 	<profiles>
 		<profile>
 			<id>sign</id>
@@ -82,10 +63,42 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho.version}</version>
+				<version>${tycho-version}</version>
 				<configuration>
-					<pomDependencies>consider</pomDependencies>
-					<resolver>p2</resolver>
+					<target>
+						<artifact>
+							<groupId>org.eclipse.xtext.xdoc</groupId>
+							<artifactId>org.eclipse.xtext.xdoc.target</artifactId>
+							<version>${project.version}</version>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -164,4 +177,31 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<repositories>
+		<repository>
+			<id>codehaus-snapshots</id>
+			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
+			<url>http://nexus.codehaus.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>codehaus-snapshots</id>
+			<name>disable dead 'Codehaus Snapshots' repository, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=481478</name>
+			<url>http://nexus.codehaus.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
