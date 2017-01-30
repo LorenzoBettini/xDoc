@@ -11,8 +11,33 @@
 		<tycho.version>0.25.0</tycho.version>
 		<tycho-version>${tycho.version}</tycho-version>
 		<xtext.version>2.8.4</xtext.version>
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+
+		<!-- for deployment on bintray -->
+		<!-- The name of your own Bintray repository -->
+		<bintray.repo>xtext-xdoc</bintray.repo>
+		<!-- The name of your own Bintray repository's package for releases -->
+		<bintray.package>releases</bintray.package>
+		<!-- The label for the Composite sites -->
+		<site.label>Xdoc Site</site.label>
+
+		<!-- If the Bintray repository is owned by someone different from your
+			user, then specify the bintray.owner explicitly -->
+		<bintray.owner>${bintray.user}</bintray.owner>
+		<!-- Define bintray.user and bintray.apikey in some secret place,
+			like .m2/settings.xml -->
+
+		<!-- Default values for remote directories -->
+		<bintray.base.path></bintray.base.path>
+		<bintray.releases.path>${bintray.base.path}releases</bintray.releases.path>
+		<bintray.composite.path>${bintray.base.path}updates</bintray.composite.path>
+		<bintray.zip.path>${bintray.base.path}zipped</bintray.zip.path>
+		<!-- note that the following must be consistent with the path schema
+			used to publish child composite repositories and actual released p2 repositories -->
+		<child.repository.path.prefix>../../releases/</child.repository.path.prefix>
 	</properties>
+
 	<modules>
 		<module>org.eclipse.xtext.xdoc</module>
 		<module>org.eclipse.xtext.xdoc.generator</module>
