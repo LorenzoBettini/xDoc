@@ -1,5 +1,9 @@
 h1. Xdoc
 
+This is a maintained fork of https://github.com/RvonMassow/xDoc with an Eclipse update site:
+
+https://lorenzobettini.github.io/xtext-xdoc-releases/
+
 h2. What is Xdoc
 
 Xdoc is a simple documentation language for software projects. It focuses on, but is not limited to, Eclipse plugin projects, generating a fully functional Eclipse help plugin. We support code chunks and also code references to java classes in the class path. Error markers in the editor show the developers if any links to classes are broken.
@@ -55,8 +59,4 @@ As another concept we also added TODOs. These are ignored in Eclipse help output
 
 h2. Xdoc and Xtext
 
-Xdoc is based on Xtext 2.0 git master branch (git://git.eclipse.org/gitroot/tmf/org.eclipse.xtext.git). As Xtext 2.0 is currently under development Xdoc can be subject to API changes. If you want to import Xdoc to your Eclipse workspace I recommend you follow the workspace setup guide at "the Xtext homepage":http://www.eclipse.org/Xtext/developers/workspaceSetup.php .
-
-h2. Funding
-
-This project is funded by the *Federal Ministry of Education and Research, Germany*.
+Xdoc is based on Xtext (https://www.eclipse.org/Xtext/) that you also need to install.
